@@ -20,8 +20,9 @@ int printf(const char* restrict format, ...)
  
 	while ( *format != '\0' )
 	{
-		if ( *format != '%' )
+		if ( *format != '%' || rejected_bad_specifier)
 		{
+            rejected_bad_specifier = false;
 		print_c:
 			amount = 1;
 			while ( format[amount] && format[amount] != '%' )
@@ -34,16 +35,8 @@ int printf(const char* restrict format, ...)
  
 		const char* format_begun_at = format;
  
-		if ( *(++format) == '%' )
+		if ( *(++format) == '%')
 			goto print_c;
- 
-		if ( rejected_bad_specifier )
-		{
-		incomprehensible_conversion:
-			rejected_bad_specifier = true;
-			format = format_begun_at;
-			goto print_c;
-		}
  
 		if ( *format == 'c' )
 		{
@@ -57,9 +50,18 @@ int printf(const char* restrict format, ...)
 			const char* s = va_arg(parameters, const char*);
 			print(s, strlen(s));
 		}
+        else if (*format == 'd')
+        {
+            format++;
+            int i = va_arg(parameters,int);
+            const char* s = itoa(i);
+            print(s,strlen(s));
+        }
 		else
 		{
-			goto incomprehensible_conversion;
+			rejected_bad_specifier = true;
+			format = format_begun_at;
+			goto print_c;
 		}
 	}
  
