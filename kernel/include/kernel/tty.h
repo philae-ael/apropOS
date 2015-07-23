@@ -12,5 +12,6 @@ void terminal_write(char* c,size_t size);
 void terminal_writestring(char* c);
 void terminal_putentryat(char* c,size_t size);
 void terminal_setcursorpos(size_t x,size_t y);
+void terminal_scrollup(size_t y);
 
 #endif

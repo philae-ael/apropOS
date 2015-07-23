@@ -1,3 +1,4 @@
+.boshrc
 *.iso
 isodir
 sysroot

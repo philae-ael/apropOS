@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include <kernel/vga.h>
+#include <kernel/tty.h>
 
 size_t terminal_row;
 size_t terminal_column;
@@ -35,8 +36,9 @@ void terminal_putchar(char c)
     }
     if(++terminal_column == VGA_WIDTH)
     {
-        if(++terminal_row == VGA_HEIGHT)
-            terminal_row = 0;
+        if(++terminal_row == VGA_HEIGHT){
+            terminal_scrollup(1);
+        }
         terminal_column = 0;
     }
     const size_t offset = terminal_row * VGA_WIDTH + terminal_column;
@@ -53,4 +55,18 @@ void terminal_write(char* c,size_t size){
 void terminal_writestring(char* c)
 {
    terminal_write(c,strlen(c));
+}
+
+void terminal_scrollup(size_t y)
+{
+   if(y > VGA_HEIGHT)
+       return;
+   memcpy(terminal_buffer,
+           terminal_buffer + y * VGA_WIDTH,
+           VGA_WIDTH * (VGA_HEIGHT-y) * sizeof(uint16_t));
+
+   memset(terminal_buffer + VGA_WIDTH * (VGA_HEIGHT-y) * sizeof(uint16_t),0,
+           VGA_WIDTH * VGA_HEIGHT -  VGA_WIDTH * (VGA_HEIGHT-y));
+
+   terminal_row -= y;
 }

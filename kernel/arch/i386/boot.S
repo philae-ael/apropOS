@@ -28,6 +28,10 @@ _start:
 
 	# Initialize the core kernel before running the global constructors.
 	call kernel_early
+    
+    movw $0x18, %ax
+    movw %ax, %ss
+    movl $0x20000, %esp
 
 	# Call the global constructors.
 	call _init
@@ -40,4 +44,5 @@ _start:
 .Lhang:
 	hlt
 	jmp .Lhang
+
 .size _start, . - _start
