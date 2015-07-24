@@ -16,7 +16,7 @@ void gdt_initialize()
     gdt_initialize_desc(0x0, 0x0, 0x97, 0x0D, &kgdt[3]); //stack
 
     kgdtr.limit = GDTSIZE * 8;
-    kgdtr.base = &kgdt;
+    kgdtr.base = (uint32_t)&kgdt;
 
 
     /* change gdt register */
