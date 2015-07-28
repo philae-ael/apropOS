@@ -1,29 +1,9 @@
 #ifndef ISR_H
 #define ISR_H
 
-#define CLI asm("cli")
+#include <kernel/regs.h>
 
-#define PUSHB(x) asm("push $" ## (x) )
-#define POPB(x) asm("pop %0"\
-        :"=r" (x))
-
-#define PUSHREGS asm(" \
-        pusha \n \
-        push %ds \n \
-        push %es \n \
-        push %fs \n \
-        push %gs \n ")
-
-#define POPREGS asm(" \
-        popa \n \
-        pop %ds \n \
-        pop %es \n \
-        pop %fs \n \
-        pop %gs \n ")
-
-#define ISRRETURN asm(" \
-        add $8, %esp \n \
-        iret")
+void isr_handler(struct regs*);
 
 //exceptions
 void isr0();

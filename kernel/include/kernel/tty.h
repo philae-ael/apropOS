@@ -2,9 +2,10 @@
 #define TTY_H
 
 #include <stdint.h>
+#include <stdbool.h>
 #include <stddef.h>
 
-void terminal_initialize(void);
+bool terminal_initialize(void);
 
 void terminal_setcolor(uint16_t color);
 void terminal_putchar(char c);

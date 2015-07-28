@@ -1,6 +1,7 @@
 #ifndef IDT_H
 #define IDT_H
 #include <stdint.h>
+#include <stdbool.h>
 
 #define IDTSIZE 0xFF // nbr max of descriptors
 
@@ -22,7 +23,7 @@ struct idtr {
 struct idtr kidtr;
 struct idtgate kidt[IDTSIZE];
 
-void idt_initialize(void);
+bool idt_initialize(void);
 void idt_set_gate(uint8_t num,uint32_t offset,
         uint16_t selector, uint8_t type_attr);
 

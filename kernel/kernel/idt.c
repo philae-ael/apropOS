@@ -2,13 +2,16 @@
 #include <kernel/isr.h>
 
 #include <stdint.h> 
+#include <stdbool.h> 
 #include <stddef.h> 
 
-void idt_initialize(void)
+bool idt_initialize(void)
 {
     kidtr.limit = IDTSIZE * sizeof(struct idtgate) - 1;
     kidtr.size = (uint32_t)&kidt;
         
+    asm("lidt (kidtr)");
+
     // init exceptions
     idt_set_gate(0,(uint32_t) isr0, 0x8, 0x8E);
     idt_set_gate(1,(uint32_t) isr1, 0x8, 0x8E);
@@ -43,7 +46,7 @@ void idt_initialize(void)
     idt_set_gate(30,(uint32_t) isr30, 0x8, 0x8E);
     idt_set_gate(31,(uint32_t) isr31, 0x8, 0x8E);
 
-    asm("lidt (kidtr)");
+    return true;
 }
 
 void idt_set_gate(uint8_t num,uint32_t offset,

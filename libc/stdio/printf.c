@@ -16,13 +16,11 @@ int printf(const char* restrict format, ...)
  
 	int written = 0;
 	size_t amount;
-	bool rejected_bad_specifier = false;
  
 	while ( *format != '\0' )
 	{
-		if ( *format != '%' || rejected_bad_specifier)
+		if ( *format != '%')
 		{
-            rejected_bad_specifier = false;
 		print_c:
 			amount = 1;
 			while ( format[amount] && format[amount] != '%' )
@@ -41,7 +39,7 @@ int printf(const char* restrict format, ...)
 		if ( *format == 'c' )
 		{
 			format++;
-			char c = (char) va_arg(parameters, int /* char promotes to int */);
+			char c = (char) va_arg(parameters, int);
 			print(&c, sizeof(c));
 		}
 		else if ( *format == 's' )
@@ -54,12 +52,18 @@ int printf(const char* restrict format, ...)
         {
             format++;
             int i = va_arg(parameters,int);
-            const char* s = itoa(i);
+            const char* s = itoa(i,10);
+            print(s,strlen(s));
+        }
+        else if (*format == 'x')
+        {
+            format++;
+            int i = va_arg(parameters,int);
+            const char* s = itoa(i,16);
             print(s,strlen(s));
         }
 		else
 		{
-			rejected_bad_specifier = true;
 			format = format_begun_at;
 			goto print_c;
 		}

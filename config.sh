@@ -1,3 +1,5 @@
+export PATH=/home/tristan/OSDev/opt/cross/bin:$PATH
+
 SYSTEM_HEADER_PROJECTS="libc kernel"
 PROJECTS="libc kernel"
 
@@ -25,6 +27,22 @@ export CC="$CC --sysroot=$PWD/sysroot"
 if echo "$HOST" | grep -Eq -- '-elf($|-)'; then
   export CC="$CC -isystem=$INCLUDEDIR"
 fi
-#!/usr/bin
-export PATH=/home/tristan/OSDev/opt/cross/bin:$PATH
-export TARGET=i786-elf
+
+export PREFIX=
+export EXEC_PREFIX=$PREFIX
+export BOOTDIR=$PREFIX/boot
+export LIBDIR=$EXEC_PREFIX/lib
+export INCLUDEDIR=$PREFIX/include
+
+export CFLAGS='-O2 -g'
+export CPPFLAGS=''
+
+# Configure the cross-compiler to use the desired system root.
+export CC="$CC --sysroot=$PWD/sysroot"
+
+# Work around that the -elf gcc targets doesn't have a system include directory
+# because configure received --without-headers rather than --with-sysroot.
+if echo "$HOST" | grep -Eq -- '-elf($|-)'; then
+  export CC="$CC -isystem=$INCLUDEDIR"
+fi
+

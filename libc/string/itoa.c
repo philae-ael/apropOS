@@ -1,26 +1,45 @@
-#define INT_DIGITS 10//log(2^32,10) round to upper number
+#include <stdbool.h>
+#include <stdio.h>
 
-char *itoa(int i)
+#define INT_DIGITS 32// max size for a 32 bit variable (in base 2)
+
+char *itoa(int i,int base)
 {
+    int j;
+    bool neg = false;
+    if (i < 0 && base == 10)
+    {
+        neg = true;
+        i = -i;
+    }
 
     /* Room for INT_DIGITS digits, - and '\0' */
-    static char buf[INT_DIGITS + 2];
+    static char buf[INT_DIGITS + 2]; // /!\ WARNING !! SHOULD BE REMPLACED BY A MALLOC ASAP !!!!!
+    
+    char* p = buf + INT_DIGITS + 1;
 
-    char *p = buf + INT_DIGITS + 1;	/* points to terminating '\0' */
+    *p = '\0';
+    p--;
 
-    if (i >= 0) {
-        do {
-            *--p = '0' + (i % 10);
-            i /= 10;
-        } while (i != 0);
-        return p;
+    do
+    {
+        j = i % base;
+
+        if(j<10)
+            *p = '0' + (char)j;
+        else
+            *p = 'a' + (char) (j-10);
+
+        p--;
+
+        i /= base;
+    }while (i!=0);
+
+    if(neg)
+    {
+        *p = '-';
+        p--;
     }
-    else {			/* i < 0 */
-        do {
-            *--p = '0' - (i % 10);
-            i /= 10;
-        } while (i != 0);
-        *--p = '-';
-    }
+
     return p;
 } 

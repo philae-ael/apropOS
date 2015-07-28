@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include <stdbool.h>
 #include <string.h>
 
 #include <kernel/gdt.h>
@@ -7,7 +8,7 @@
 /** setup a gdt table with wanted values 
  * a GDT table already exist but we create our own one
  * */
-void gdt_initialize()
+bool gdt_initialize()
 {
     // initialisation of segment descriptors
     gdt_initialize_desc(0x0, 0x0, 0x0, 0x0, &kgdt[0]);
@@ -31,6 +32,7 @@ void gdt_initialize()
             movw %ax, %ss       \n \
             jmp $0x08, $next   \n \
             next:               \n");
+    return true;
 }
 
 void gdt_initialize_desc(uint32_t base,

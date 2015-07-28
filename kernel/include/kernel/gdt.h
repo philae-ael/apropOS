@@ -1,6 +1,7 @@
 #ifndef GDT_H
 #define GDT_H
 #include <stdint.h>
+#include <stdbool.h>
 
 #define GDTBASE 0x0//where will be the gdt table
 #define GDTSIZE 0xFF //nbr max of descriptors
@@ -26,7 +27,7 @@ struct gdtr {
 struct gdtr kgdtr;
 struct gdtdesc kgdt[GDTSIZE];
 
-void gdt_initialize(void);
+bool gdt_initialize(void);
 void gdt_initialize_desc(uint32_t base,
         uint32_t limit,uint8_t access,
         uint8_t flags,struct gdtdesc *desc);

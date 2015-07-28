@@ -10,7 +10,7 @@ size_t terminal_column;
 uint8_t terminal_color;
 uint16_t* terminal_buffer;
 
-void terminal_initialize()
+bool terminal_initialize()
 {
     terminal_row = 0;
     terminal_column = 0;
@@ -20,6 +20,8 @@ void terminal_initialize()
     {
         terminal_buffer[i] = make_vgaentry(' ',terminal_color);
     }
+
+    return true;
 }
 
 void terminal_setcolor(uint16_t color)
