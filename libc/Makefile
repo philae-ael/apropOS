@@ -27,17 +27,11 @@ LIBK_CFLAGS:=$(LIBK_CFLAGS) $(KERNEL_ARCH_CFLAGS)
 LIBK_CPFLAGS:=$(LIBK_CPPFLAGS) $(KERNEL_ARCH_CPPFLAGS)
 
 FREEOBJS:=\
-$(ARCH_FREEOBJS) \
-stdio/printf.o \
-stdio/putchar.o \
-stdio/puts.o \
-stdlib/abort.o \
-string/memcmp.o \
-string/memcpy.o \
-string/memmove.o \
-string/memset.o \
-string/strlen.o \
-string/itoa.o \
+$(ARCH_FREEOBJS)
+
+include stdio/make.config
+include stdlib/make.config
+include string/make.config
 
 HOSTEDOBJS:=\
 $(ARCH_HOSTEDOBJS) \

@@ -23,26 +23,27 @@ stack_top:
 .section .text
 .global _start
 .type _start, @function
+
 _start:
-	movl $stack_top, %esp
+movl $stack_top, %esp
 
-	# Initialize the core kernel before running the global constructors.
-	call kernel_early
-    
-    movw $0x18, %ax
-    movw %ax, %ss
-    movl $0x20000, %esp
+# Initialize the core kernel before running the global constructors.
+call kernel_early
 
-	# Call the global constructors.
-	call _init
+movw $0x18, %ax
+movw %ax, %ss
+movl $0x20000, %esp
 
-	# Transfer control to the main kernel.
-	call kernel_main
+# Call the global constructors.
+call _init
 
-	# Hang if kernel_main unexpectedly returns.
-	cli
+# Transfer control to the main kernel.
+call kernel_main
+
+# Hang if kernel_main unexpectedly returns.
+cli
 .Lhang:
-	hlt
-	jmp .Lhang
+hlt
+jmp .Lhang
 
 .size _start, . - _start

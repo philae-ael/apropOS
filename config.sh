@@ -1,4 +1,4 @@
-export PATH=/home/tristan/OSDev/opt/cross/bin:$PATH
+export OS=apropos
 
 SYSTEM_HEADER_PROJECTS="libc kernel"
 PROJECTS="libc kernel"

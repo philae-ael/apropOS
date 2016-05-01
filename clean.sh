@@ -8,4 +8,4 @@ done
 
 rm -rfv sysroot
 rm -rfv isodir
-rm -rfv apropos.iso
+rm -rfv $OS.iso

@@ -6,10 +6,10 @@ mkdir -p isodir
 mkdir -p isodir/boot
 mkdir -p isodir/boot/grub
 
-cp sysroot/boot/apropos.kernel isodir/boot/apropos.kernel
+cp sysroot/boot/$OS.kernel isodir/boot/$OS.kernel
 cat > isodir/boot/grub/grub.cfg << EOF
-menuentry "apropos" {
-	multiboot /boot/apropos.kernel
+menuentry "$OS" {
+	multiboot /boot/$OS.kernel
 }
 EOF
-grub-mkrescue -o apropos.iso isodir
+grub-mkrescue -o $OS.iso isodir

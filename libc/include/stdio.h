@@ -2,6 +2,7 @@
 #define _STDIO_H
 
 #include <sys/cdefs.h>
+#include <stddef.h>
 
 #ifdef __cpluplus
 extern "C"{
