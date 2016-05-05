@@ -1,3 +1,4 @@
+.intel_syntax noprefix
 
 # Declare constants used for creating a multiboot header.
 .set ALIGN,    1<<0             # align loaded modules on page boundaries
@@ -25,14 +26,14 @@ stack_top:
 .type _start, @function
 
 _start:
-movl $stack_top, %esp
+mov esp, OFFSET FLAT:stack_top
 
 # Initialize the core kernel before running the global constructors.
 call kernel_early
 
-movw $0x18, %ax
-movw %ax, %ss
-movl $0x20000, %esp
+mov ax, 0x18
+mov ss, ax
+mov esp, 0x20000
 
 # Call the global constructors.
 call _init
