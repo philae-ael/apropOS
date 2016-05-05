@@ -2,74 +2,66 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
- 
+
 static void print(const char* data, size_t data_length)
 {
-	for ( size_t i = 0; i < data_length; i++ )
-		putchar((int) ((const unsigned char*) data)[i]);
+    for ( size_t i = 0; i < data_length; i++ )
+        putchar((int) ((const unsigned char*) data)[i]);
 }
- 
+
 int printf(const char* restrict format, ...)
 {
-	va_list parameters;
-	va_start(parameters, format);
- 
-	int written = 0;
-	size_t amount;
- 
-	while ( *format != '\0' )
-	{
-		if ( *format != '%')
-		{
-		print_c:
-			amount = 1;
-			while ( format[amount] && format[amount] != '%' )
-				amount++;
-			print(format, amount);
-			format += amount;
-			written += amount;
-			continue;
-		}
- 
-		const char* format_begun_at = format;
- 
-		if ( *(++format) == '%')
-			goto print_c;
- 
-		if ( *format == 'c' )
-		{
-			format++;
-			char c = (char) va_arg(parameters, int);
-			print(&c, sizeof(c));
-		}
-		else if ( *format == 's' )
-		{
-			format++;
-			const char* s = va_arg(parameters, const char*);
-			print(s, strlen(s));
-		}
-        else if (*format == 'd')
+    va_list parameters;
+    va_start(parameters, format);
+
+    int written = 0;
+    size_t amount;
+
+    while ( *format != '\0' )
+   {
+        if ( *format == '%')
         {
             format++;
-            int i = va_arg(parameters,int);
-            const char* s = itoa(i,10);
-            print(s,strlen(s));
-        }
-        else if (*format == 'x')
-        {
+            if(*format == 'd'){
+                    int i = va_arg(parameters, int);
+                    char c [32]; //works up to 10^32
+                    itoa(i, c, 10);
+                    print(c, strlen(c));
+            }
+            else if(*format == 'x'){
+                    int i = va_arg(parameters, int);
+                    char c [32]; //works up to 10^32
+                    itoa(i, c, 16);
+                    print(c, strlen(c));
+            }
+            else if(*format == 'b'){
+                    int i = va_arg(parameters, int);
+                    char c [32]; //works up to 10^32
+                    itoa(i, c, 2);
+                    print(c, strlen(c));
+            }
+            else if(*format == 's'){
+                    const char* c = va_arg(parameters, char*);
+                    print(c, strlen(c));
+            }
+            else if(*format == 'c'){
+                    const char c = va_arg(parameters, char);
+                    print(&c, 1);
+            }
+            else{
+                print(format, 1);
+            }
             format++;
-            int i = va_arg(parameters,int);
-            const char* s = itoa(i,16);
-            print(s,strlen(s));
         }
-		else
-		{
-			format = format_begun_at;
-			goto print_c;
-		}
-	}
- 
-	va_end(parameters);
- 
-	return written;
+        else{
+            int amount = 0;
+            while(*(format + amount) != '%' && *(format + amount) != '\0')
+                amount++;
+            print(format, amount);
+            format += amount;
+        }
+    }
+    va_end(parameters);
+
+    return written;
 }

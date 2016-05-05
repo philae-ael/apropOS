@@ -14,7 +14,8 @@ void* memcpy(void* __restrict, const void* __restrict, size_t); //to, from, how 
 void* memmove(void*, const void*, size_t); //to, from, how much
 void* memset(void*,int , size_t); //to, from, how much
 size_t strlen(const char*);
-char* itoa(int,int);
+void reverse(char*, size_t);
+char* itoa(int,char*,int);
 
 #ifdef _cplusplus
 }

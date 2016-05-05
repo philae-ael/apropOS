@@ -1,45 +1,44 @@
 #include <stdbool.h>
-#include <stdio.h>
+#include <string.h>
 
-#define INT_DIGITS 32// max size for a 32 bit variable (in base 2)
 
-char *itoa(int i,int base)
+char* itoa(int num, char* str, int base)
 {
-    int j;
-    bool neg = false;
-    if (i < 0 && base == 10)
+    int i = 0;
+    bool isNegative = false;
+
+    /* Handle 0 explicitely, otherwise empty string is printed for 0 */
+    if (num == 0)
     {
-        neg = true;
-        i = -i;
+        str[i++] = '0';
+        str[i] = '\0';
+        return str;
     }
 
-    /* Room for INT_DIGITS digits, - and '\0' */
-    static char buf[INT_DIGITS + 2]; // /!\ WARNING !! SHOULD BE REMPLACED BY A MALLOC ASAP !!!!!
-    
-    char* p = buf + INT_DIGITS + 1;
-
-    *p = '\0';
-    p--;
-
-    do
+    // In standard itoa(), negative numbers are handled only with
+    // base 10. Otherwise numbers are considered unsigned.
+    if (num < 0 && base == 10)
     {
-        j = i % base;
-
-        if(j<10)
-            *p = '0' + (char)j;
-        else
-            *p = 'a' + (char) (j-10);
-
-        p--;
-
-        i /= base;
-    }while (i!=0);
-
-    if(neg)
-    {
-        *p = '-';
-        p--;
+        isNegative = true;
+        num = -num;
     }
 
-    return p;
-} 
+    // Process individual digits
+    while (num != 0)
+    {
+        int rem = num % base;
+        str[i++] = (rem > 9)? (rem-10) + 'a' : rem + '0';
+        num = num/base;
+    }
+
+    // If number is negative, append '-'
+    if (isNegative)
+        str[i++] = '-';
+
+    str[i] = '\0'; // Append string terminator
+
+    // Reverse the string
+    reverse(str, i);
+
+    return str;
+}

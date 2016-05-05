@@ -36,4 +36,5 @@ void kernel_early(void)
 void kernel_main(void)
 {
     printf("Hello, world !\nLet's play with kernels !\n");
+    printf("Printf hexa numbers : %d 0x%x 0b%b \n", 15, 15, 15);
 }
