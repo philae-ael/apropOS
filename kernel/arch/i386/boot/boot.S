@@ -29,6 +29,7 @@ _start:
 mov esp, OFFSET FLAT:stack_top
 
 # Initialize the core kernel before running the global constructors.
+call arch_kernel_early
 call kernel_early
 
 mov ax, 0x18
