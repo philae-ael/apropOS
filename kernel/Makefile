@@ -1,10 +1,10 @@
 HOST?=$(shell ../default-host.sh)
 HOSTARCH:=$(shell ../target-triplet-to-arch.sh $(HOST))
 
-CFLAGS?=-O2 -g -masm=intel
-CPPFLAGS?=
-LDFLAGS?=
-LIBS?=
+CFLAGS:=-O2 -g -masm=intel
+CPPFLAGS:=
+LDFLAGS:=
+LIBS:=
 
 DESTDIR?=
 PREFIX?=/usr/local

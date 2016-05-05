@@ -17,20 +17,20 @@
 
 #define pushRegs() asm volatile (" \
         pusha \n \
-        push %ds \n \
-        push %es \n \
-        push %fs \n \
-        push %gs \n ") //save regs on stack
+        push ds \n \
+        push es \n \
+        push fs \n \
+        push gs \n ") //save regs on stack
 
 #define popRegs() asm volatile (" \
-        pop %gs \n \
-        pop %fs \n \
-        pop %es \n \
-        pop %ds \n \
+        pop gs \n \
+        pop fs \n \
+        pop es \n \
+        pop ds \n \
         popa ") //restore regs stored on stack
 
 #define intReturn asm volatile (" \
-        add $8, %esp \n \
+        add esp, 8 \n \
         iret") //clean stack and return for interuptions
 
 #define outb(ival,idest) asm volatile (" \
@@ -39,16 +39,16 @@
         : \
         :"a" (isrc), "Nd" (idest) ) //send ival on port idest
 
-#define intb(isrc,odest) asm volatile (" \
-        inb %w0,%b1"\
-        :"=a"(dest) \
-        :"Nd" (src)) //get value from port isrc to odest
+#define inb(isrc,odest) asm volatile (" \
+        in %w0,%b1"\
+        :"=a"(odest) \
+        :"Nd" (isrc)) //get value from port isrc to odest
 
 #define call(ifunc) asm volatile (" \
-        mov %%esp, %%eax \n \
-        push %%eax \n \
-        mov %0, %%eax \n \
-        call *%%eax \n \
-        pop %%eax" \
+        mov eax, esp \n \
+        push eax \n \
+        mov eax, %0 \n \
+        call [eax] \n \
+        pop eax" \
         :\
         :"i" (func)) // call ifunc
