@@ -1,3 +1,5 @@
+#include <stdint.h>
+
 /*
     Some usefuls macro for OS developpement
     for args : i* -> inputs
@@ -33,16 +35,28 @@
         add esp, 8 \n \
         iret") //clean stack and return for interuptions
 
-#define outb(ival,idest) asm volatile (" \
-        outb %b0, %w1\n \
-        nop" \
-        : \
-        :"a" (isrc), "Nd" (idest) ) //send ival on port idest
+static inline uint8_t inb(uint16_t port)
+{
+    uint8_t ret;
+    asm volatile ( "in %0, %1"
+                   : "=a"(ret)
+                   : "Nd"(port) );
+    return ret;
+}
 
-#define inb(isrc,odest) asm volatile (" \
-        in %w0,%b1"\
-        :"=a"(odest) \
-        :"Nd" (isrc)) //get value from port isrc to odest
+
+static inline void outb(uint16_t port, uint8_t val)
+{
+    asm volatile (" \
+            out %1, %0" : : "a"(val), "Nd"(port) );
+}
+
+static inline void io_wait(void)
+{
+    asm volatile ( "jmp 1f\n\t"
+                   "1:jmp 2f\n\t"
+                   "2:" );
+}
 
 #define call(ifunc) asm volatile (" \
         mov eax, esp \n \
