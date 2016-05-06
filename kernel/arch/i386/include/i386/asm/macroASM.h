@@ -48,7 +48,7 @@
         mov eax, esp \n \
         push eax \n \
         mov eax, %0 \n \
-        call [eax] \n \
+        call eax \n \
         pop eax" \
         :\
-        :"i" (func)) // call ifunc
+        :"i" (ifunc)) // call ifunc

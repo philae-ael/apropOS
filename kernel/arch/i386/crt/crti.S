@@ -1,3 +1,5 @@
+.intel_syntax noprefix
+
 /*
     crti.S give the prolog for the .init and the .fini section 
 */
@@ -5,14 +7,14 @@
 .global _init
 .type _init, @function
 _init:
-	push %ebp
-	movl %esp, %ebp
+	push ebp
+	mov ebp, esp
 	/* gcc will nicely put the contents of crtbegin.o's .init section here. */
 
 .section .fini
 .global _fini
 .type _fini, @function
 _fini:
-	push %ebp
-	movl %esp, %ebp
+	push ebp
+	mov ebp, esp
 	/* gcc will nicely put the contents of crtbegin.o's .fini section here. */
