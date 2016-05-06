@@ -6,7 +6,7 @@
 #include <stdbool.h>
 
 #include <kernel/tty.h>
-#include <kernel/vga.h>
+#include <kdb/kdb.h>
 
 #define INIT(name, checkReturn) \
     printf( "initialization of " #name ); \
@@ -37,5 +37,8 @@ void kernel_main(void)
 {
     printf("Hello, world !\nLet's play with kernels !\n");
     printf("Printf hexa numbers : %d 0x%x 0b%b \n", 15, 15, 15);
-    volatile int a = 1/0;
+
+    while(1){
+        printf("%d", getChar());
+    }
 }
