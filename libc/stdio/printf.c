@@ -15,7 +15,6 @@ int printf(const char* restrict format, ...)
     va_start(parameters, format);
 
     int written = 0;
-    size_t amount;
 
     while ( *format != '\0' )
    {
@@ -27,26 +26,31 @@ int printf(const char* restrict format, ...)
                     char c [32]; //works up to 10^32
                     itoa(i, c, 10);
                     print(c, strlen(c));
+                    written += strlen(c);
             }
             else if(*format == 'x'){
                     int i = va_arg(parameters, int);
                     char c [32]; //works up to 10^32
                     itoa(i, c, 16);
                     print(c, strlen(c));
+                    written += strlen(c);
             }
             else if(*format == 'b'){
                     int i = va_arg(parameters, int);
                     char c [32]; //works up to 10^32
                     itoa(i, c, 2);
                     print(c, strlen(c));
+                    written += strlen(c);
             }
             else if(*format == 's'){
                     const char* c = va_arg(parameters, char*);
                     print(c, strlen(c));
+                    written += strlen(c);
             }
             else if(*format == 'c'){
                     const char c = va_arg(parameters, char);
                     print(&c, 1);
+                    written += 1;
             }
             else{
                 print(format, 1);
@@ -59,6 +63,7 @@ int printf(const char* restrict format, ...)
                 amount++;
             print(format, amount);
             format += amount;
+            written += written;
         }
     }
     va_end(parameters);

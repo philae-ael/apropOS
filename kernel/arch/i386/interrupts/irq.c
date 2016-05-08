@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 #include <i386/irq.h>
 #include <i386/irqdefs.h>
 #include <i386/idt.h>
