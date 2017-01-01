@@ -65,6 +65,7 @@ _start:
     ; C++ features such as global constructors and exceptions will require
     ; runtime support to work as well.
 
+    cli
     extern kernel_early
     call kernel_early
 
