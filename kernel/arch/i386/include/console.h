@@ -4,7 +4,7 @@
 
 void console_init();
 void clear_screen();
-void putc(char);
-void puts(char*);
+void console_putc(char);
+void console_puts(char*);
 
 #endif

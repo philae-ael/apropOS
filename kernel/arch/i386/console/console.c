@@ -42,7 +42,7 @@ void scrolls(uint8_t lineToScrolls){
     memset(start_clear, 0, (end - start_clear) * sizeof(uint16_t));
 }
 
-void init_console(){
+void console_init(){
     console = (uint16_t*)0xB8000;
 
     console_status.cursor.x = console_status.cursor.y = 0;
@@ -52,7 +52,7 @@ void init_console(){
     clear_screen();
 }
 
-void putc(char c){
+void console_putc(char c){
     uint16_t* address = get_address(console_status.cursor.x,
                                   console_status.cursor.y);
     switch(c){
@@ -90,9 +90,9 @@ void putc(char c){
 
 }
 
-void puts(char* str){
+void console_puts(char* str){
     while(*str != 0){
-        putc(*str);
+        console_putc(*str);
         str++;
     }
 }

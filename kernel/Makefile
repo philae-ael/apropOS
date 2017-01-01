@@ -68,8 +68,9 @@ clean:
 install: install-headers install-kernel
 
 install-headers:
-	mkdir -p $(DESTDIR)$(INCLUDEDIR)
-	cp -RTv include $(DESTDIR)$(INCLUDEDIR)
+	mkdir -p $(DESTDIR)$(INCLUDEDIR)/kernel
+	cp -RTv include $(DESTDIR)$(INCLUDEDIR)/kernel
+	cp -RTv $(ARCHDIR)/include $(DESTDIR)$(INCLUDEDIR)/kernel
 
 install-kernel: apropos.kernel
 	mkdir -p $(DESTDIR)$(BOOTDIR)

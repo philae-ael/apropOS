@@ -1,10 +1,10 @@
 #include <stdbool.h>
+#include <stdio.h>
 
 #include "console.h"
 
 
 void kernel_early(){
-    init_console();
+    console_init();
     puts("Console initialized\b\n");
-
 }

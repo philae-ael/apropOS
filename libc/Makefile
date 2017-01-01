@@ -15,22 +15,15 @@ EXEC_PREFIX?=$(PREFIX)
 INCLUDEDIR?=$(PREFIX)/include
 LIBDIR?=$(EXEC_PREFIX)/lib
 
-CFLAGS:=$(CFLAGS) -Wall -Wextra
-CPPFLAGS:=$(CPPFLAGS) -D__is_apropOS_libc -Iinclude
-LIBK_CFLAGS:=$(CFLAGS) -ffreestanding -fbuiltin
-LIBK_CPPFLAGS:=$(CPPFLAGS) -D__is_apropOS_kernel
-
-ARCHDIR:=arch/$(HOSTARCH)
-
-CFLAGS:=$(CFLAGS) $(ARCH_CFLAGS)
-CPFLAGS:=$(CPPFLAGS) $(ARCH_CPPFLAGS)
-LIBK_CFLAGS:=$(LIBK_CFLAGS) $(KERNEL_ARCH_CFLAGS)
-LIBK_CPFLAGS:=$(LIBK_CPPFLAGS) $(KERNEL_ARCH_CPPFLAGS)
+CFLAGS:=$(CFLAGS) -Wall -Wextra -I$(INCLUDEDIR)
+CPPFLAGS:=$(CPPFLAGS)
+LIBK_CFLAGS:=$(CFLAGS) -ffreestanding -fbuiltin -D_klibc
+LIBK_CPPFLAGS:=$(CPPFLAGS)
 
 FREEOBJS:=\
 $(ARCH_FREEOBJS)
 
-#include stdio/make.config
+include stdio/make.config
 #include stdlib/make.config
 include string/make.config
 
@@ -43,7 +36,7 @@ $(HOSTEDOBJS) \
 
 LIBK_OBJS:=$(FREEOBJS:.o=.libk.o)
 
-BINARIES=libc.a libg.a libk.a
+BINARIES=libc.a libk.a
 
 all: $(BINARIES)
 
@@ -51,9 +44,6 @@ all: $(BINARIES)
 
 libc.a: $(OBJS)
 	$(AR) rcs $@ $(OBJS)
-
-libg.a:
-	$(AR) rcs $@
 
 libk.a: $(LIBK_OBJS)
 	$(AR) rcs $@ $(LIBK_OBJS)
