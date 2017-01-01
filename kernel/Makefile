@@ -1,7 +1,10 @@
 HOST?=$(shell ../default-host.sh)
 HOSTARCH:=$(shell ../target-triplet-to-arch.sh $(HOST))
 
-CFLAGS:=-O2 -g -masm=intel
+ASM=nasm
+ASFLAGS=-felf32
+
+CFLAGS:= -g -masm=intel 
 CPPFLAGS:=
 LDFLAGS:=
 LIBS:=
@@ -12,12 +15,13 @@ EXEC_PREFIX?=$(PREFIX)
 BOOTDIR?=$(EXEC_PREFIX)/boot
 INCLUDEDIR?=$(PREFIX)/include
 
+ARCHDIR:=arch/$(HOSTARCH)
+
 CFLAGS:=$(CFLAGS) -ffreestanding -fbuiltin -Wall -Wextra
-CPPFLAGS:=$(CPPFLAGS) -D__is_apropos_kernel -Iinclude -Iarch/$(HOSTARCH)/include
+CPPFLAGS:=$(CPPFLAGS) -D__is_apropos_kernel -Iinclude -fno-builtin
 LDFLAGS:=$(LDFLAGS)
 LIBS:=$(LIBS) -nostdlib -lgcc -lk
 
-ARCHDIR:=arch/$(HOSTARCH)
 
 include $(ARCHDIR)/make.config
 
@@ -54,6 +58,9 @@ apropos.kernel: $(OBJ_LINK_LIST) $(ARCHDIR)/linker.ld
 
 %.o: %.S
 	$(CC) -c $< -o $@ $(CFLAGS) $(CPPFLAGS)
+
+%.o: %.asm
+	$(ASM) $(ASFLAGS) $< -o $@
 
 clean:
 	rm -f apropos.kernel $(OBJS) $(ALL_OUR_OBJS) *.o */*.o */*/*.o

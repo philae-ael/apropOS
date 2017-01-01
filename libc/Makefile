@@ -1,6 +1,9 @@
 HOST?=$(shell ../default-host.sh)
 HOSTARCH:=$(shell ../target-triplet-to-arch.sh $(HOST))
 
+ASM=nasm
+ASFLAGS=-f aout
+
 CFLAGS?=-O2 -g
 CPPFLAGS?=
 LDFLAGS?=
@@ -19,8 +22,6 @@ LIBK_CPPFLAGS:=$(CPPFLAGS) -D__is_apropOS_kernel
 
 ARCHDIR:=arch/$(HOSTARCH)
 
-include $(ARCHDIR)/make.config
-
 CFLAGS:=$(CFLAGS) $(ARCH_CFLAGS)
 CPFLAGS:=$(CPPFLAGS) $(ARCH_CPPFLAGS)
 LIBK_CFLAGS:=$(LIBK_CFLAGS) $(KERNEL_ARCH_CFLAGS)
@@ -29,8 +30,8 @@ LIBK_CPFLAGS:=$(LIBK_CPPFLAGS) $(KERNEL_ARCH_CPPFLAGS)
 FREEOBJS:=\
 $(ARCH_FREEOBJS)
 
-include stdio/make.config
-include stdlib/make.config
+#include stdio/make.config
+#include stdlib/make.config
 include string/make.config
 
 HOSTEDOBJS:=\
@@ -60,14 +61,14 @@ libk.a: $(LIBK_OBJS)
 %.o: %.c
 	$(CC) -c $< -o $@ -std=gnu11 $(CFLAGS) $(CPPFLAGS)
 
-%.o: %.S
-	$(CC) -c $< -o $@ $(CFLAGS) $(CPPFLAGS)
+%.o: %.asm
+	$(ASM) $(ASFLAGS) -o $@ $<
 
 %.libk.o: %.c
 	$(CC) -c $< -o $@ -std=gnu11 $(LIBK_CFLAGS) $(LIBK_CPPFLAGS)
 
-%.libk.o: %.S
-	$(CC) -c $< -o $@ $(LIBK_CFLAGS) $(LIBK_CPPFLAGS)
+%.libk.o: %.asm
+	$(ASM) $(ASFLAGS) -o $@ $<
 
 clean:
 	rm -f $(BINARIES) $(OBJS) $(LIBK_OBJS) *.o */*.o */*/*.o
