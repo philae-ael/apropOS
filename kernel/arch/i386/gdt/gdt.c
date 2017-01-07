@@ -42,5 +42,5 @@ void gdt_init(){
     fill_entry(2, 0, 0xFFFFFFFF, 0x92, 0xCF); // Data selector (0x10)
 
     // say to the processor to use the gdt
-    gdt_flush(gdt, sizeof(gdt));
+    gdt_flush(gdt, sizeof(gdt) - 1);
 }
