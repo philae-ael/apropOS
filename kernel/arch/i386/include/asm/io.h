@@ -13,7 +13,4 @@ uint32_t ind(uint16_t port);
 
 void io_wait();
 
-void enable_interrupts();
-void disable_interrupts();
-
 #endif /* ifndef ASM_H */

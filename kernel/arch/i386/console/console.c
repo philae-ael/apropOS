@@ -53,7 +53,7 @@ void console_init(){
 }
 
 void console_putc(char c){
-
+    if(!c) return;
     if(console_status.cursor.x > console_status.screen.width){
         console_status.cursor.x = 0;
         console_status.cursor.y += 1;

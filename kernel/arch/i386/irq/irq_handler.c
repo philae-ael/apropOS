@@ -1,5 +1,5 @@
-#include <regs.h>
-#include <asm.h>
+#include <asm/regs.h>
+#include <asm/io.h>
 #include <irq.h>
 #include <stdint.h>
 

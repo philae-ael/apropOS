@@ -1,4 +1,4 @@
-#include <regs.h>
+#include <asm/regs.h>
 #include <stdio.h>
 #include <isr.h>
 

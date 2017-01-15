@@ -1,13 +1,13 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-#include <asm.h>
+#include <asm/interrupts.h>
 #include <console.h>
 #include <gdt.h>
 #include <idt.h>
 #include <isr.h>
 #include <irq.h>
-#include <kdb.h>
+#include <kbd.h>
 
 void kernel_early(){
     disable_interrupts();
@@ -28,8 +28,8 @@ void kernel_early(){
     irq_init();
     puts("IRQ initialized\n");
 
-    kdb_init();
-    puts("KDB initialized\n");
+    kbd_init();
+    puts("KBD initialized\n");
 
     enable_interrupts();
 }

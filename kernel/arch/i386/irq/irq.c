@@ -1,6 +1,6 @@
 #include <irq.h>
 #include <idt.h>
-#include <asm.h>
+#include <asm/io.h>
 
 
 extern void irq0();

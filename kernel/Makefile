@@ -24,6 +24,7 @@ LIBS:=$(LIBS) -nostdlib -lgcc -lk
 
 
 include $(ARCHDIR)/make.config
+include driver/make.config
 
 CFLAGS:=$(CFLAGS) $(KERNEL_ARCH_CFLAGS)
 CPFLAGS:=$(CPPFLAGS) $(KERNEL_ARCH_CPPFLAGS)
@@ -32,6 +33,7 @@ LIBS:=$(LIBS) $(KERNEL_ARCH_LIBS)
 
 OBJS:=\
 $(KERNEL_ARCH_OBJS) \
+$(DRIVER_OBJS) \
 kernel/kernel.o \
 
 ALL_OUR_OBJS:=\
