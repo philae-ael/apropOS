@@ -8,6 +8,7 @@
 #include <isr.h>
 #include <irq.h>
 #include <kbd.h>
+#include <pit.h>
 
 void kernel_early(){
     disable_interrupts();
@@ -30,6 +31,9 @@ void kernel_early(){
 
     kbd_init();
     puts("KBD initialized\n");
+
+    pit_init();
+    puts("PIT initialized\n");
 
     enable_interrupts();
 }
