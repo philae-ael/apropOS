@@ -9,6 +9,7 @@
 #include <irq.h>
 #include <kbd.h>
 #include <pit.h>
+#include <paging.h>
 
 void kernel_early(){
     disable_interrupts();
@@ -34,6 +35,8 @@ void kernel_early(){
 
     pit_init();
     puts("PIT initialized\n");
-
     enable_interrupts();
+
+    page_init();
+    puts("Paging initialized\n");
 }
