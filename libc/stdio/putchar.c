@@ -4,10 +4,11 @@
 #include <kernel/console.h>
 #endif
 
-void putchar(char c){
+int putchar(int c){
 #ifdef _klibc
     console_putc(c);
 #else
     //TODO
 #endif
+    return c;
 }

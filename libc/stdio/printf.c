@@ -1,13 +1,13 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-int printf(const char *format, ...){
+int _printf(int (*puts)(const char[]),
+        int (*putchar)(int),
+        const char *format, va_list args){
     const char *p;
     char buff[256]; //to contain atoi/itoa return
     char* s;
     char c;
-    va_list args;
-    va_start(args, format);
 
     for(p = format; *p != 0; p++){
         if(*p != '%'){
@@ -41,6 +41,17 @@ int printf(const char *format, ...){
         }
     }
 
-    va_end(args);
     return 0;
+}
+
+int vprintf(const char* format, va_list args){
+    return _printf(puts, putchar, format, args);
+}
+
+int printf(const char* format, ...){
+    va_list args;
+    va_start(args, format);
+    int ret = _printf(puts, putchar, format, args);
+    va_end(args);
+    return ret;
 }

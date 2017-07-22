@@ -11,7 +11,7 @@ struct regs
     unsigned int eip, cs, eflags, useresp, ss;   /* pushed by the processor automatically */
 };
 
-
+void log_regs(struct regs* r);
 uint32_t read_cr3();
 uint32_t read_cr0();
 void write_cr0(uint32_t);

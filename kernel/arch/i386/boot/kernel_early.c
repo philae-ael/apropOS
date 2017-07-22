@@ -1,5 +1,4 @@
-#include <stdbool.h>
-#include <stdio.h>
+#include <logging.h>
 
 #include <asm/interrupts.h>
 #include <serial.h>
@@ -17,19 +16,21 @@ void kernel_early(){
     serial_init();
     console_init();
 
-    puts("Serial initialized\n");
-    puts("Console initialized\n");
+    set_log_level(LOG_DEBUG);
+
+    info("Serial initialized\n");
+    info("Console initialized\n");
 
     gdt_init();
-    puts("GDT initialized\n");
+    info("GDT initialized\n");
 
     idt_init();
-    puts("IDT initialized\n");
+    info("IDT initialized\n");
 
     isr_init();
-    puts("ISR initialized\n");
+    info("ISR initialized\n");
 
     irq_init();
-    puts("IRQ initialized\n");
+    info("IRQ initialized\n");
     enable_interrupts();
 }

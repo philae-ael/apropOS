@@ -13,7 +13,7 @@ uint16_t serial_port; // serial_port set in serial_port
 
 void serial_init(){
     // We will use COM 1 mapped by bios on 0x400
-    uint16_t* bios_serial_data = (uint16_t) 0x400;
+    uint16_t* bios_serial_data = (uint16_t* ) 0x400;
     serial_port = *bios_serial_data; // In qemu (and a lot of machines) serial_port should be 0x3f8
 
     /* start initializing port
@@ -50,6 +50,22 @@ char read_serial(){
 void write_serial(char c){
     wait_serial_out();
     outb(serial_port, c);
+}
+
+int putchar_serial(int c){
+    write_serial(c);
+    return c;
+}
+
+int puts_serial(const char* str){
+    char * ptr = str;
+    int n = 0;
+    while(*ptr != 0){
+        write_serial(*ptr);
+        ptr++;
+        n++;
+    }
+    return n;
 }
 
 #endif

@@ -10,5 +10,6 @@ FILE="/tmp/$OS-log"
 INFO "Log mapped on file $LOGFILE"
 
 qemu-system-$(./target-triplet-to-arch.sh $HOST) \
-    -chardev file,id=log,path=$FIFO  -device isa-serial,chardev=log\
-    -cdrom $OS.iso
+    -serial mon:stdio \
+    -cdrom $OS.iso \
+    -nographic

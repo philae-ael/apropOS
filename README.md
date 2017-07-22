@@ -13,7 +13,7 @@ based on [OSDev's recommandations](http://wiki.osdev.org/What_order_should_I_mak
 
 - [x] Working output system for logging on screen + helpers to show numbers in hex/dec/oct numbers (printf like interface)
 - [x] Working output system through serial port for debugging.
-- [ ] Interupts handler + dumping all needed content (regs/stack frames/address default/other debugs things)
+- [x] Interupts handler + dumping all needed content (regs/stack frames/address default/other debugs things)
 - [ ] And more...
 
 # Let's run it

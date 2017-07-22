@@ -23,8 +23,11 @@ LIBK_CPPFLAGS:=$(CPPFLAGS)
 FREEOBJS:=\
 $(ARCH_FREEOBJS)
 
+include def.config
+
 include stdio/make.config
 #include stdlib/make.config
+include logging/make.config
 include string/make.config
 
 HOSTEDOBJS:=\
@@ -49,13 +52,13 @@ libk.a: $(LIBK_OBJS)
 	$(AR) rcs $@ $(LIBK_OBJS)
 
 %.o: %.c
-	$(CC) -c $< -o $@ -std=gnu11 $(CFLAGS) $(CPPFLAGS)
+	$(CC) -c $< -o $@ -std=gnu11 $(CFLAGS) $(CPPFLAGS) $(CONF)
 
 %.o: %.asm
-	$(ASM) $(ASFLAGS) -o $@ $<
+	$(ASM) $(ASFLAGS) -o $@ $< 
 
 %.libk.o: %.c
-	$(CC) -c $< -o $@ -std=gnu11 $(LIBK_CFLAGS) $(LIBK_CPPFLAGS)
+	$(CC) -c $< -o $@ -std=gnu11 $(LIBK_CFLAGS) $(LIBK_CPPFLAGS) $(KCONF)
 
 %.libk.o: %.asm
 	$(ASM) $(ASFLAGS) -o $@ $<

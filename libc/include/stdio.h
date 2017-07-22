@@ -1,9 +1,13 @@
 #ifndef STDIO_H
 #define STDIO_H
 
+#include <stdarg.h>
+
 int printf(const char* format, ...);
-void puts(char* str);
-void putchar(char c);
+int vprintf(const char* format, va_list);
+int _printf(int (*)(const char[]), int (*)(int), const char *, va_list);
+int puts(const char* str);
+int putchar(int c);
 char* itoa(int value, char* str, int base);
 char* atoi(int value, char* str);
 

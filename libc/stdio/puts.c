@@ -1,13 +1,15 @@
 #include <stdio.h>
+#include <string.h>
 
 #ifdef _klibc
 #include <kernel/console.h>
 #endif
 
-void puts(char* str){
+int puts(const char* str){
 #ifdef _klibc
     console_puts(str);
 #else
     //TODO
 #endif
+    return strlen(str);
 }
