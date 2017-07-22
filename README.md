@@ -29,6 +29,10 @@ This toolchain come from OSDev tutorials initially but are quite reworked.
 - **build.sh** -> build project
 - **qemu.sh** -> build and start the kernel throught qemu
 
+ Ctrl+A then C to get the hand over the qemu monitor
+
+*Warning:* run clean.sh when changing one def.config file.
+
 ## The sources
 
 - **kernel** -> the sources of my kernel
