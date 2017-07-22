@@ -9,7 +9,7 @@ What I want is not a fully fonctional system but a way to learn more on PC archi
 
 ## What I want to be working on my system
 
-based on (OSDev's recommandations)[http://wiki.osdev.org/What_order_should_I_make_things_in]
+based on [OSDev's recommandations](http://wiki.osdev.org/What_order_should_I_make_things_in)
 
 - [x] Working output system for logging on screen + helpers to show numbers in hex/dec/oct numbers (printf like interface)
 - [x] Working output system through serial port for debugging.
@@ -36,4 +36,4 @@ This toolchain come from OSDev tutorials initially but are quite reworked.
 
 ---------------
 # References:
-- A really good way to learn more and more -> (OSDev)[http://wiki.osdev.org/]
+- A really good way to learn more and more -> [OSDev](http://wiki.osdev.org/)
