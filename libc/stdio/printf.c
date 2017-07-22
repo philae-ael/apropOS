@@ -24,6 +24,8 @@ int printf(const char *format, ...){
                 s = va_arg(args, char*);
                 puts(s);
                 break;
+            case 'X':
+                puts("0x");
             case 'x':
                 itoa(va_arg(args, int), buff, 16);
                 puts(buff);
