@@ -4,6 +4,7 @@
 
 #include <stdint.h>
 #include <string.h>
+#include <serial.h>
 
 uint16_t* console;
 
@@ -54,6 +55,11 @@ void console_init(){
 
 void console_putc(char c){
     if(!c) return;
+
+#ifdef CONSOLE_TO_SERIAL
+    write_serial(c);
+#endif
+
     if(console_status.cursor.x > console_status.screen.width){
         console_status.cursor.x = 0;
         console_status.cursor.y += 1;

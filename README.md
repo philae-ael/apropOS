@@ -12,7 +12,7 @@ What I want is not a fully fonctional system but a way to learn more on PC archi
 based on (OSDev's recommandations)[http://wiki.osdev.org/What_order_should_I_make_things_in]
 
 - [x] Working output system for logging on screen + helpers to show numbers in hex/dec/oct numbers (printf like interface)
-- [ ] Working output/input system on serial port.
+- [x] Working output system through serial port for debugging.
 - [ ] Interupts handler + dumping all needed content (regs/stack frames/address default/other debugs things)
 - [ ] And more...
 
