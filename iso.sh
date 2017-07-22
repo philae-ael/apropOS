@@ -2,6 +2,7 @@
 set -e
 . ./build.sh
 
+INFO "Creating ISO"
 mkdir -p isodir
 mkdir -p isodir/boot
 mkdir -p isodir/boot/grub
@@ -13,3 +14,4 @@ menuentry "$OS" {
 }
 EOF
 grub2-mkrescue -o $OS.iso isodir
+INFO "ISO created"

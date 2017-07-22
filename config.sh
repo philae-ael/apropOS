@@ -1,5 +1,10 @@
 export OS=apropos
 
+INFO(){ echo -en "\033[36mINFO: "; echo -e "$@\033[0m" ;}
+WARN(){ echo -en "\033[33mWARN: "; echo -e "$@\033[0m" ;}
+ERRO(){ echo -en "\033[31mERRO: "; echo -e "$@\033[0m" ; exit 1;}
+
+
 SYSTEM_HEADER_PROJECTS="libc kernel"
 PROJECTS="libc kernel"
 
