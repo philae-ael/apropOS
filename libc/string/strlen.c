@@ -2,7 +2,9 @@
 
 size_t strlen(const char *str){
     size_t n = 0;
-    while(*str)
+    while(*str){
         n++;
+        str++;
+    }
     return n;
 }
