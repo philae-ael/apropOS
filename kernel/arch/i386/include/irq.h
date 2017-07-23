@@ -25,13 +25,42 @@
 
 #define PIC_EOI        0x20        /* End-of-interrupt command code */
 
-void irq_remap();
+/* irq_init
+ * Initialize IRQs, adding handlers in IDT and remap IRQs.
+ * Have to be called before any other functions in this file.
+ * Warning, IDT must have be initialized before.
+ * */
 void irq_init();
-void irq_handler(struct regs*);
+
+/* irq_handler_install
+ * Allow to add a custom handler.
+ * Args:
+ *  - irq_nb the num of the irq. (see http://wiki.osdev.org/Interrupts#General_IBM-PC_Compatible_Interrupt_Information) for basic IRQs.
+ * This function don't unmask the interrupt.
+ * */
 void irq_handler_install(uint8_t irq_nb, void(*handler)(struct regs*));
+
+/* irq_handler_uninstall
+ * Remove previously installed handler.
+ * This function don't mask the interrupt
+ * */
 void irq_handler_uninstall(uint8_t irq_nb);
+
+/* irq_mask
+ * Mask the IRQ.
+ * Args:
+ *  - irq_nb: The numero of the IRQ to mask
+ * */
 void irq_mask(uint8_t irq_nb);
+/* irq_unmask
+ * Unmask the IRQ.
+ * Args:
+ *  - irq_nb: The numero of the IRQ to unmask
+ * */
 void irq_unmask(uint8_t irq_nb);
+
+/* irq_mask_all
+ * Mask all IRQs.
+ * */
 void irq_mask_all();
-void pic_sendEOI(uint8_t irq_nb);
 #endif /* ifndef IRQ_H */

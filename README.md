@@ -38,6 +38,39 @@ This toolchain come from OSDev tutorials initially but are quite reworked.
 - **kernel** -> the sources of my kernel
 - **libc** -> the sources of my custom libc
 
+# A bit of documentation
+
+## Kernel 
+
+### arch/i386
+
+Architecture (here i386 systems) dependant part of the kernel.
+
+- console.h
+  Everything that deals with output on screen (VGA) in text mode.
+- gdt.h
+  Initialize a proper GDT. 
+- idt.h
+  Initialize and allow to manage interrupts (irq + isr)
+- irq.h 
+  Initialize IRQs. 
+  Use handlers and unmask to allow to catch an IRQ.
+- isr.h 
+  Initialize ISRs.
+- serial.h
+  Everything that deals with serial outputs/inputs (only COM1).
+  Inputs don't really works.
+
+
+### kernel/
+
+Architecture independant part of the kernel.
+
+
+## Libc
+
+
+
 ---------------
 # References:
 - A really good way to learn more and more -> [OSDev](http://wiki.osdev.org/)
