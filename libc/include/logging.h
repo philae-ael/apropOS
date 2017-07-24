@@ -28,7 +28,7 @@ void set_log_level(int log_level);
 #define warnf(...) logf(LOG_WARN, __VA_ARGS__)
 #define errf(...) logf(LOG_ERR, __VA_ARGS__)
 
-#define debug_func(fmt, ...) debugf("[%a]" fmt "\n", __func__, __VA_ARGS__)
+#define debug_func(fmt, ...) debugf("[%s] " fmt "\n", __func__, __VA_ARGS__)
 #define info_func(fmt, ...) debugf("[%s] " fmt "\n", __func__, __VA_ARGS__)
 #define warn_func(fmt, ...) debugf("[%s] " fmt "\n", __func__, __VA_ARGS__)
 #define err_func(fmt, ...) debugf("[%s] " fmt "\n", __func__, __VA_ARGS__)
