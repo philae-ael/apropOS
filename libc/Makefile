@@ -15,9 +15,9 @@ EXEC_PREFIX?=$(PREFIX)
 INCLUDEDIR?=$(PREFIX)/include
 LIBDIR?=$(EXEC_PREFIX)/lib
 
-CFLAGS:=$(CFLAGS) -Wall -Wextra -I$(INCLUDEDIR)
+CFLAGS:=$(CFLAGS) -ffreestanding -fbuiltin -Wall -Wextra -I$(INCLUDEDIR)
 CPPFLAGS:=$(CPPFLAGS)
-LIBK_CFLAGS:=$(CFLAGS) -ffreestanding -fbuiltin -D_klibc
+LIBK_CFLAGS:=$(CFLAGS) -D_klibc
 LIBK_CPPFLAGS:=$(CPPFLAGS)
 
 FREEOBJS:=\
@@ -26,7 +26,7 @@ $(ARCH_FREEOBJS)
 include def.config
 
 include stdio/make.config
-#include stdlib/make.config
+include stdlib/make.config
 include logging/make.config
 include string/make.config
 
