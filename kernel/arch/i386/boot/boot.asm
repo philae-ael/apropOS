@@ -67,6 +67,8 @@ _start:
 
     cli
     extern kernel_early
+    push eax ; magic == 0x2BADB002
+    push ebx ; multiboot_info struct passed by multiboot bootloader
     call kernel_early
 
     ; Enter the high-level kernel. The ABI requires the stack is 16-byte
