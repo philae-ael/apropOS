@@ -13,7 +13,7 @@ char *log_msg [] = {
     "INFO: ",
     "WARNING: ",
     "ERROR: ",
-    ""
+    "ASSERT: "
 };
 
 void logf(int log_level, const char * fmt, ...){
