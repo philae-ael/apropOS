@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-. ./iso.sh
+. ./build.sh
 
 INFO "Launching qemu"
 
@@ -11,5 +11,6 @@ INFO "Log mapped on file $LOGFILE"
 
 qemu-system-$(./target-triplet-to-arch.sh $HOST) \
     -serial mon:stdio \
-    -cdrom $OS.iso \
-    -nographic
+    -kernel kernel/apropos.kernel \
+    -nographic \
+    $@
