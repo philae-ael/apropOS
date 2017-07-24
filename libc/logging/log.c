@@ -3,7 +3,7 @@
 #include <stdarg.h>
 
 #ifdef LOG_SERIAL
-#include <kernel/serial.h>
+#include <kernel/i386/serial.h>
 #endif
 
 int _log_level = LOG_DEFAULT;
@@ -25,9 +25,11 @@ void logf(int log_level, const char * fmt, ...){
 #ifdef LOG_SERIAL
     puts_serial(log_msg[log_level]);
     _printf(puts_serial, putchar_serial, fmt, args);
+    puts_serial("\n");
 #else
     puts(log_msg[log_level]);
     vprintf(fmt, args);
+    puts("\n");
 #endif
     va_end(args);
 
@@ -41,9 +43,11 @@ void log(int log_level, const char *msg){
 #ifdef LOG_SERIAL
     puts_serial(log_msg[log_level]);
     puts_serial(msg);
+    puts_serial("\n");
 #else
     puts(log_msg[log_level]);
     puts(msg);
+    puts("\n");
 #endif
 
 

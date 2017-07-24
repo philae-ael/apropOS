@@ -23,25 +23,25 @@ void kernel_early(multiboot_info_t* mbd, uint32_t magic){
     set_log_level(LOG_DEBUG);
 
     assert(magic == 0x2BADB002); // Is it really multiboot ?
-    info("Serial initialized\n");
-    info("Console initialized\n");
+    info("Serial initialized");
+    info("Console initialized");
 
-    debugf("Multiboot flags %X\n", mbd->flags);
+    debugf("Multiboot flags %X", mbd->flags);
 
     if (mbd->flags, 0x2)
-         infof("Multiline cmdline = %s\n", (char *) mbd->cmdline);
+         infof("Multiline cmdline = %s", (char *) mbd->cmdline);
 
     gdt_init();
-    info("GDT initialized\n");
+    info("GDT initialized");
 
     idt_init();
-    info("IDT initialized\n");
+    info("IDT initialized");
 
     isr_init();
-    info("ISR initialized\n");
+    info("ISR initialized");
 
     irq_init();
-    info("IRQ initialized\n");
+    info("IRQ initialized");
 
     kcall_init();
     info("Kcalls initialized");
@@ -55,5 +55,5 @@ void kernel_early(multiboot_info_t* mbd, uint32_t magic){
 
     multiboot_memory_map_t* mmap = mbd->mmap_addr;
     mem_management_init(mmap, mbd->mmap_length);
-    info("Memory management initialized\n");
+    info("Memory management initialized");
 }
