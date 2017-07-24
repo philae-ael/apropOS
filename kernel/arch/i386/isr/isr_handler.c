@@ -1,6 +1,6 @@
-#include <asm/regs.h>
 #include <logging.h>
-#include <isr.h>
+#include <kernel/i386/asm/regs.h>
+#include <kernel/i386/isr.h>
 
 char * exception_msg [] = {
     "Division By Zero Exception\n",

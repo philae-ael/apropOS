@@ -1,6 +1,6 @@
-#include <asm/regs.h>
-#include <asm/io.h>
-#include <irq.h>
+#include <kernel/i386/asm/regs.h>
+#include <kernel/i386/asm/io.h>
+#include <kernel/i386/irq.h>
 #include <stdint.h>
 
 void (*irq_handlers[])(struct regs*) = {

@@ -1,4 +1,4 @@
-#include <asm/regs.h>
+#include <kernel/i386/asm/regs.h>
 #include <logging.h>
 
 void log_regs(struct regs* r){

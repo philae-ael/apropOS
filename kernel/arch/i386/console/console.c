@@ -4,7 +4,7 @@
 
 #include <stdint.h>
 #include <string.h>
-#include <serial.h>
+#include <kernel/i386/serial.h>
 
 uint16_t* console;
 

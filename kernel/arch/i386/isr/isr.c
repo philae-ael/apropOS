@@ -1,5 +1,5 @@
-#include <isr.h>
-#include <idt.h>
+#include <kernel/i386/isr.h>
+#include <kernel/i386/idt.h>
 
 extern void isr0();
 extern void isr1();

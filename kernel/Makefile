@@ -18,13 +18,14 @@ INCLUDEDIR?=$(PREFIX)/include
 ARCHDIR:=arch/$(HOSTARCH)
 
 CFLAGS:=$(CFLAGS) -ffreestanding -Wall -Wextra
-CPPFLAGS:=$(CPPFLAGS) -D__is_apropos_kernel -Iinclude
+CPPFLAGS:=$(CPPFLAGS) -D__is_apropos_kernel -I$(DESTDIR)/$(INCLUDEDIR)
 LDFLAGS:=$(LDFLAGS)
 LIBS:=$(LIBS) -nostdlib -lgcc -lk
 
 include def.config
 
 include $(ARCHDIR)/make.config
+include kernel/make.config
 
 CFLAGS:=$(CFLAGS) $(KERNEL_ARCH_CFLAGS)
 CPFLAGS:=$(CPPFLAGS) $(KERNEL_ARCH_CPPFLAGS)
@@ -33,7 +34,7 @@ LIBS:=$(LIBS) $(KERNEL_ARCH_LIBS)
 
 OBJS:=\
 $(KERNEL_ARCH_OBJS) \
-$(DRIVER_OBJS) \
+$(KERNEL_COMMON_OBJS) \
 kernel/kernel.o \
 
 ALL_OUR_OBJS:=\
@@ -72,7 +73,7 @@ install: install-headers install-kernel
 install-headers:
 	mkdir -p $(DESTDIR)$(INCLUDEDIR)/kernel
 	cp -RTv include $(DESTDIR)$(INCLUDEDIR)/kernel
-	cp -RTv $(ARCHDIR)/include $(DESTDIR)$(INCLUDEDIR)/kernel
+	cp -RTv $(ARCHDIR)/include $(DESTDIR)$(INCLUDEDIR)/kernel/$(HOSTARCH)
 
 install-kernel: apropos.kernel
 	mkdir -p $(DESTDIR)$(BOOTDIR)

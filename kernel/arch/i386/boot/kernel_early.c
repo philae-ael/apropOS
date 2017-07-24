@@ -1,16 +1,16 @@
-#include <multiboot.h>
 #include <logging.h>
 #include <assert.h>
 
-#include <asm/interrupts.h>
-#include <serial.h>
-#include <console.h>
-#include <gdt.h>
-#include <idt.h>
-#include <isr.h>
-#include <irq.h>
-#include <memory_management.h>
-#include <kcall.h>
+#include <kernel/i386/multiboot.h>
+#include <kernel/i386/asm/interrupts.h>
+#include <kernel/i386/serial.h>
+#include <kernel/i386/console.h>
+#include <kernel/i386/gdt.h>
+#include <kernel/i386/idt.h>
+#include <kernel/i386/isr.h>
+#include <kernel/i386/irq.h>
+#include <kernel/i386/memory_management.h>
+#include <kernel/kcall.h>
 
 void kernel_early(multiboot_info_t* mbd, uint32_t magic){
     disable_interrupts();

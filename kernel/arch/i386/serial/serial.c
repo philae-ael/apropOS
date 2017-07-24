@@ -1,4 +1,4 @@
-#include <asm/io.h>
+#include <kernel/i386/asm/io.h>
 #include <stdint.h>
 
 #ifdef SERIAL_PORT_DISABLE

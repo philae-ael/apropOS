@@ -1,7 +1,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <string.h>
-#include <idt.h>
+#include <kernel/i386/idt.h>
 
 #define IDT_MAX_SIZE 256
 

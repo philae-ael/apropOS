@@ -1,4 +1,4 @@
-#include <memory_management.h>
+#include <kernel/i386/memory_management.h>
 #include <logging.h>
 
 

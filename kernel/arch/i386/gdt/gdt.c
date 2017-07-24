@@ -1,5 +1,5 @@
 #include <stdint.h>
-#include <gdt.h>
+#include <kernel/i386/gdt.h>
 
 #define GDT_MAX_ENTRY 16 // up to 2^13
 

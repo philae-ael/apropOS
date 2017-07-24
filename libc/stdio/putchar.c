@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 #ifdef _klibc
-#include <kernel/console.h>
+#include <kernel/i386/console.h>
 #endif
 
 int putchar(int c){

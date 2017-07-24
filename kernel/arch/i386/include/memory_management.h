@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <stddef.h>
 
-#include <multiboot.h>
+#include <kernel/i386/multiboot.h>
 
 #define MIN_BLOCK_BYTES_SIZE 64
 
