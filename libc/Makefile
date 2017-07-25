@@ -29,6 +29,7 @@ include stdio/make.config
 include stdlib/make.config
 include logging/make.config
 include string/make.config
+include assert/make.config
 
 HOSTEDOBJS:=\
 $(ARCH_HOSTEDOBJS) \
