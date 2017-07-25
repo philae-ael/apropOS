@@ -28,14 +28,14 @@ void set_log_level(int log_level);
 #define warnf(...) logf(LOG_WARN, __VA_ARGS__)
 #define errf(...) logf(LOG_ERR, __VA_ARGS__)
 
-#define debug_func(msg) debugf("[%s] " fmt, __func__)
-#define info_func(msg) debugf("[%s] " fmt, __func__)
-#define warn_func(msg) debugf("[%s] " fmt, __func__)
-#define err_func(msg) debugf("[%s] " fmt, __func__)
+#define debug_func(msg) debugf("[%s] " msg, __func__)
+#define info_func(msg) infof("[%s] " msg, __func__)
+#define warn_func(msg) warnf("[%s] " msg, __func__)
+#define err_func(msg) errf("[%s] " msg, __func__)
 
 #define debugf_func(fmt, ...) debugf("[%s] " fmt, __func__, __VA_ARGS__)
-#define infof_func(fmt, ...) debugf("[%s] " fmt, __func__, __VA_ARGS__)
-#define warnf_func(fmt, ...) debugf("[%s] " fmt, __func__, __VA_ARGS__)
-#define errf_func(fmt, ...) debugf("[%s] " fmt, __func__, __VA_ARGS__)
+#define infof_func(fmt, ...) infof("[%s] " fmt, __func__, __VA_ARGS__)
+#define warnf_func(fmt, ...) warnf("[%s] " fmt, __func__, __VA_ARGS__)
+#define errf_func(fmt, ...) errf("[%s] " fmt, __func__, __VA_ARGS__)
 
 #endif
