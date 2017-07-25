@@ -10,6 +10,7 @@
 #include <kernel/i386/isr.h>
 #include <kernel/i386/irq.h>
 #include <kernel/i386/memory_management.h>
+#include <kernel/i386/paging.h>
 #include <kernel/kcall.h>
 
 void kernel_early(multiboot_info_t* mbd, uint32_t magic){
@@ -56,4 +57,7 @@ void kernel_early(multiboot_info_t* mbd, uint32_t magic){
     multiboot_memory_map_t* mmap = (multiboot_memory_map_t*) mbd->mmap_addr;
     heap_init(mmap, mbd->mmap_length);
     info("Memory management initialized");
+
+    paging_init();
+    info("Paging initialized");
 }
