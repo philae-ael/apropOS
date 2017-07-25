@@ -29,7 +29,7 @@ void kernel_early(multiboot_info_t* mbd, uint32_t magic){
     debugf("Multiboot flags %X", mbd->flags);
 
     if (mbd->flags, 0x2)
-         infof("Multiline cmdline = %s", (char *) mbd->cmdline);
+         infof("Multiline cmdline = %s", mbd->cmdline);
 
     gdt_init();
     info("GDT initialized");
@@ -53,7 +53,7 @@ void kernel_early(multiboot_info_t* mbd, uint32_t magic){
         for(;;);
     }
 
-    multiboot_memory_map_t* mmap = mbd->mmap_addr;
-    mem_management_init(mmap, mbd->mmap_length);
+    multiboot_memory_map_t* mmap = (multiboot_memory_map_t*) mbd->mmap_addr;
+    heap_init(mmap, mbd->mmap_length);
     info("Memory management initialized");
 }

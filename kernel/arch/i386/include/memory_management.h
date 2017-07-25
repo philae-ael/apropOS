@@ -5,28 +5,16 @@
 
 #include <kernel/i386/multiboot.h>
 
-#define MIN_BLOCK_BYTES_SIZE 64
+#define HEAP_FLAGS_MAGIC 0xA
 
-typedef struct mem_block{
-    /* flags
-     * bit 0: free
-     * bit 1: end of mem
-     * bit 2: adjacent with next block (no hole in memory)
-     * */
-    uint8_t flags;
-    size_t size;
-    struct mem_block* maybe_next_free; // if this block is free, this is next free block, otherwise 0.
-    struct mem_block* next;
-    struct mem_block* prev;
-} mem_block;
+typedef struct{
+    // We can have up to 6 fields ! No more
+    uint8_t used :1;
+    uint8_t reserved :1;
+    uint8_t magic:4;
+} heap_entry_t;
 
-mem_block* mem_first_free;
-mem_block* mem_first;
-
-void mem_management_init(multiboot_memory_map_t*, size_t mmap_length);
-void mem_block_merge(mem_block* block);
-void mem_block_split(mem_block* free_block, size_t size);
-void mem_block_set_used(mem_block* prev_free_block, mem_block* free_block, size_t size);
-
+void* heap_addr(heap_entry_t*);
+void heap_init(multiboot_memory_map_t*, size_t mmap_length);
 
 #endif /* ifndef MEM_MANAGEMENT_H */
