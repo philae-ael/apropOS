@@ -8,9 +8,14 @@ void* heap_addr_from_index(size_t index){
     return (void*) (index << 12);
 }
 
-heap_entry_t* heap_entry(void* addr){
-    return &heap_map[(size_t)addr >> 12];
+size_t heap_index_from_addr(void* addr){
+    return ((size_t) addr >> 12);
 }
+
+heap_entry_t* heap_entry(void* addr){
+    return &heap_map[heap_index_from_addr(addr)];
+}
+
 
 void heap_map_add_entry(size_t* base_addr, size_t length, uint8_t reserved);
 void set_kernel_mem_used();
@@ -64,12 +69,9 @@ void set_kernel_mem_used(){
 }
 
 void heap_map_add_entry(size_t* base_addr, size_t length, uint8_t type){
-    if(((size_t)base_addr & 0xFFFFF000) != (size_t)base_addr)
-        base_addr = (size_t*) ((((size_t)base_addr >> 12) - 1) << 12);
-
-    for (size_t i = (size_t) base_addr >> 12;
-         i < ((size_t) base_addr + length) >> 12;
-         i++) { // 4k aligned
+    for (size_t i = (size_t) heap_index_from_addr((void*) base_addr);
+         i < (size_t)heap_index_from_addr((void*)((size_t) base_addr + length));
+         i++) {
         heap_map[i].used = 0;
         heap_map[i].reserved = (type == 1) ? 0 : 1;
         heap_map[i].magic = HEAP_FLAGS_MAGIC;

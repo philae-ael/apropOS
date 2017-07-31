@@ -13,10 +13,11 @@
 #define PAGING_4KB_MASK 0xFFFFF000
 
 typedef uint32_t page_directory_t;
-typedef uint32_t page_table_t;
+typedef uint32_t page_entry_t;
 
 
 void paging_setup_directory(uint32_t entry_nb, page_directory_t dir);
 void paging_init();
+page_entry_t* find_next_empty_page(page_directory_t*);
 
 #endif /* ifndef PAGING_H */

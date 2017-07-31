@@ -3,8 +3,7 @@ global enable_paging
 extern page_directory
 
 enable_paging:
-    mov eax, [page_directory]
-    mov cr3, eax
+    mov cr3, eax ; Arg is passed by eax
 
     mov eax, cr0
     or eax, 0x80000001
