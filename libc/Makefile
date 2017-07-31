@@ -1,22 +1,5 @@
-HOST?=$(shell ../default-host.sh)
-HOSTARCH:=$(shell ../target-triplet-to-arch.sh $(HOST))
-
-ASM=nasm
-ASFLAGS=-f aout
-
-CFLAGS?=-O2 -g
-CPPFLAGS?=
-LDFLAGS?=
-LIBS?=
-
-PREFIX?=/usr/local
-DESTDIR?=
-EXEC_PREFIX?=$(PREFIX)
-INCLUDEDIR?=$(PREFIX)/include
-LIBDIR?=$(EXEC_PREFIX)/lib
-
-CFLAGS:=$(CFLAGS) -ffreestanding -fbuiltin -Wall -Wextra -I$(INCLUDEDIR)
-CPPFLAGS:=$(CPPFLAGS)
+CFLAGS:=$(CFLAGS_COMMON)
+CPPFLAGS:=$(CPPFLAGS_COMMON)
 LIBK_CFLAGS:=$(CFLAGS) -D_klibc
 LIBK_CPPFLAGS:=$(CPPFLAGS)
 

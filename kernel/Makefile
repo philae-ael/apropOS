@@ -1,19 +1,7 @@
-HOST?=$(shell ../default-host.sh)
-HOSTARCH:=$(shell ../target-triplet-to-arch.sh $(HOST))
-
-ASM=nasm
-ASFLAGS=-felf32
-
-CFLAGS:= -g -masm=intel 
-CPPFLAGS:=
-LDFLAGS:=
-LIBS:=
-
-DESTDIR?=
-PREFIX?=/usr/local
-EXEC_PREFIX?=$(PREFIX)
-BOOTDIR?=$(EXEC_PREFIX)/boot
-INCLUDEDIR?=$(PREFIX)/include
+CFLAGS:=$(CFLAGS_COMMON)
+CPPFLAGS:=$(CPPFLAGS_COMMON)
+LDFLAGS:=$(LDFLAGS_COMMON)
+LIBS:=$(LIBS_COMMON)
 
 ARCHDIR:=arch/$(HOSTARCH)
 
