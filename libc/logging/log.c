@@ -26,7 +26,8 @@ void logf(int log_level, const char * fmt, ...){
     puts_serial(log_msg[log_level]);
     _printf(puts_serial, putchar_serial, fmt, args);
     puts_serial("\n");
-#else
+#endif
+#ifdef LOG_CONSOLE
     puts(log_msg[log_level]);
     vprintf(fmt, args);
     puts("\n");
