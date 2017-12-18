@@ -13,7 +13,7 @@ typedef struct multiboot_header
     unsigned long load_end_addr;
     unsigned long bss_end_addr;
     unsigned long entry_addr;
-} __attribute__((packed)) multiboot_header_t;
+} /*__attribute__((packed))*/ multiboot_header_t;
 
 typedef struct aout_symbol_table
 {
@@ -21,7 +21,7 @@ typedef struct aout_symbol_table
     unsigned long strsize;
     unsigned long addr;
     unsigned long reserved;
-} __attribute__((packed)) aout_symbol_table_t;
+} /*__attribute__((packed))*/ aout_symbol_table_t;
 
 typedef struct elf_section_header_table
 {
@@ -29,7 +29,7 @@ typedef struct elf_section_header_table
     unsigned long size;
     unsigned long addr;
     unsigned long shndx;
-} __attribute__((packed)) elf_section_header_table_t;
+} /*__attribute__((packed))*/ elf_section_header_table_t;
 
 
 typedef struct multiboot_memory_map {
@@ -39,7 +39,7 @@ typedef struct multiboot_memory_map {
     uint32_t length_low;
     uint32_t length_high;
     uint32_t type;
-} __attribute__((packed)) multiboot_memory_map_t;
+} /*__attribute__((packed))*/ multiboot_memory_map_t;
 
 
 typedef struct multiboot_info
@@ -80,7 +80,7 @@ typedef struct multiboot_info
     uint16_t vbe_interface_seg;
     uint16_t vbe_interface_off;
     uint16_t vbe_interface_len;
-} __attribute__((packed)) multiboot_info_t;
+} /*__attribute__((packed))*/ multiboot_info_t;
 
 
 #endif /* ifndef MULTIBOOT_H */

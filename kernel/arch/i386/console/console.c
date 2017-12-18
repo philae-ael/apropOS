@@ -5,8 +5,7 @@
 #include <stdint.h>
 #include <string.h>
 #include <kernel/i386/serial.h>
-
-uint16_t* console;
+#include <kernel/i386/console.h>
 
 struct console_status{
     struct{
@@ -19,8 +18,9 @@ struct console_status{
     } screen;
 };
 
+static uint16_t* console;
+static struct console_status console_status;
 
-struct console_status console_status;
 
 void clear_screen(){
     for(uint16_t x = 0; x < console_status.screen.width * console_status.screen.height; x++){
@@ -28,19 +28,19 @@ void clear_screen(){
     }
 }
 
-uint16_t* get_address(uint8_t x, uint8_t y){
+static uint16_t* get_address(uint8_t x, uint8_t y){
     return console + y * console_status.screen.width + x;
 }
 
-void scrolls(uint8_t lineToScrolls){
+static void scrolls(uint8_t lineToScrolls){
     uint16_t* start = get_address(0, lineToScrolls);
 
     uint16_t* start_clear = get_address(0, console_status.screen.height - lineToScrolls);
     uint16_t* end = get_address(console_status.screen.width, console_status.screen.height);
 
-    memmove(console, start, (end - start) * sizeof(uint16_t));
+    memmove(console, start, (size_t)(end - start) * sizeof(uint16_t));
 
-    memset(start_clear, 0, (end - start_clear) * sizeof(uint16_t));
+    memset(start_clear, 0, (size_t)(end - start_clear) * sizeof(uint16_t));
 }
 
 void console_init(){
@@ -53,12 +53,8 @@ void console_init(){
     clear_screen();
 }
 
-void console_putc(char c){
+void console_putc(const char c){
     if(!c) return;
-
-#ifdef CONSOLE_TO_SERIAL
-    write_serial(c);
-#endif
 
     if(console_status.cursor.x > console_status.screen.width){
         console_status.cursor.x = 0;
@@ -88,14 +84,14 @@ void console_putc(char c){
         break;
 
     default:
-        *address = (0x0F << 8) | c;
+        *address = (uint16_t)((0x0F << 8) | c);
 
         console_status.cursor.x += 1;
     }
 
 }
 
-void console_puts(char* str){
+void console_puts(const char* str){
     while(*str != 0){
         console_putc(*str);
         str++;

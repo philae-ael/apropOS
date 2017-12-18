@@ -6,24 +6,24 @@
  * Initialize the console and all internals vars used.
  * Have to be called before any other functions of this file.
  * */
-void console_init();
+void console_init(void);
 
 /* Clear_screan
  * Clear the screen removing every character on the screen and setting next write position at (0, 0) (top-left corner)
  * Don't reset cursor position.
  * */
-void clear_screen();
+void clear_screen(void);
 
 /* console_putc
  * Add a character on the screen.
  * Don't change the cursor position.
  * */
-void console_putc(char);
+void console_putc(const char);
 
 /* console_puts
  * Add a null-terminated string on the screen.
  * Don't change the cursor position
  * */
-void console_puts(char*);
+void console_puts(const char*);
 
 #endif

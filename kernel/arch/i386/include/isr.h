@@ -4,6 +4,6 @@
 /* isr_init
  * Initialize isr.
  * */
-void isr_init();
+void isr_init(void);
 
 #endif /* ifndef ISR_H */

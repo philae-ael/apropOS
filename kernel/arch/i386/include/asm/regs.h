@@ -12,8 +12,8 @@ struct regs
 };
 
 void log_regs(struct regs* r);
-uint32_t read_cr3();
-uint32_t read_cr0();
+uint32_t read_cr3(void);
+uint32_t read_cr0(void);
 void write_cr0(uint32_t);
 void write_cr3(uint32_t);
 

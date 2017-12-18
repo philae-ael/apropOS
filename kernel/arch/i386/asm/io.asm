@@ -42,8 +42,39 @@ inw:
     ret ; data is in eax
 
 io_wait:
-    jmp a
-a:
-    jmp b
-b:
-    ret
+   pushaq
+
+   push 0x8
+   push .next
+   retf
+.next:
+   nop
+   nop
+   nop
+   nop
+
+   push 0x8
+   push .next2
+   retf
+.next2:
+   nop
+   nop
+   nop
+   nop
+
+   push 0x8
+   push .next3
+   retf
+.next3:
+   nop
+   nop
+   nop
+   nop
+
+   push 0x8
+   push .next4
+   retf
+.next4:
+
+   popaq
+   ret

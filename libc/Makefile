@@ -1,18 +1,11 @@
 CFLAGS:=$(CFLAGS_COMMON)
 CPPFLAGS:=$(CPPFLAGS_COMMON)
-LIBK_CFLAGS:=$(CFLAGS) -D_klibc
-LIBK_CPPFLAGS:=$(CPPFLAGS)
 
 FREEOBJS:=\
 $(ARCH_FREEOBJS)
 
-include def.config
-
 include stdio/make.config
 include stdlib/make.config
-include logging/make.config
-include string/make.config
-include assert/make.config
 
 HOSTEDOBJS:=\
 $(ARCH_HOSTEDOBJS) \
@@ -21,9 +14,7 @@ OBJS:=\
 $(FREEOBJS) \
 $(HOSTEDOBJS) \
 
-LIBK_OBJS:=$(FREEOBJS:.o=.libk.o)
-
-BINARIES=libc.a libk.a
+BINARIES=libc.a
 
 all: $(BINARIES)
 
@@ -32,20 +23,11 @@ all: $(BINARIES)
 libc.a: $(OBJS)
 	$(AR) rcs $@ $(OBJS)
 
-libk.a: $(LIBK_OBJS)
-	$(AR) rcs $@ $(LIBK_OBJS)
-
 %.o: %.c
 	$(CC) -c $< -o $@ -std=gnu11 $(CFLAGS) $(CPPFLAGS) $(CONF)
 
 %.o: %.asm
 	$(ASM) $(ASFLAGS) -o $@ $< 
-
-%.libk.o: %.c
-	$(CC) -c $< -o $@ -std=gnu11 $(LIBK_CFLAGS) $(LIBK_CPPFLAGS) $(KCONF)
-
-%.libk.o: %.asm
-	$(ASM) $(ASFLAGS) -o $@ $<
 
 clean:
 	rm -f $(BINARIES) $(OBJS) $(LIBK_OBJS) *.o */*.o */*/*.o

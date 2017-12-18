@@ -11,6 +11,6 @@ uint8_t inb(uint16_t port);
 uint16_t inw(uint16_t port);
 uint32_t ind(uint16_t port);
 
-void io_wait();
+void io_wait(void);
 
 #endif /* ifndef ASM_H */

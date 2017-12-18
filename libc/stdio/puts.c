@@ -1,15 +1,14 @@
 #include <stdio.h>
 #include <string.h>
+#include <utils.h>
 
-#ifdef _klibc
-#include <kernel/i386/console.h>
-#endif
+#include <kernel/kcall.h>
+#include <kernel/kcall_no.h>
 
 int puts(const char* str){
-#ifdef _klibc
-    console_puts(str);
-#else
-    //TODO
-#endif
-    return strlen(str);
+    size_t len = strlen(str);
+    struct kcall_write_t write_args = {.str = str, .len=len};
+
+    kcall(KCALL_WRITE, &write_args);
+    return (int) len;
 }

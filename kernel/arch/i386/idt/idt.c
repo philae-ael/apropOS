@@ -13,11 +13,11 @@ struct idt_entry
     uint8_t always0;
     uint8_t flags;
     uint16_t base_hi;
-} __attribute__((packed));
+};
 
 extern void idt_load(struct idt_entry*, size_t);
 
-struct idt_entry idt[IDT_MAX_SIZE];
+static struct idt_entry idt[IDT_MAX_SIZE];
 
 void idt_set_gate(uint8_t num, uint32_t base, uint16_t sel, uint8_t flags){
     idt[num].base_lo = base & 0xFFFF;

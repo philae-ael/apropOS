@@ -30,7 +30,7 @@
  * Have to be called before any other functions in this file.
  * Warning, IDT must have be initialized before.
  * */
-void irq_init();
+void irq_init(void);
 
 /* irq_handler_install
  * Allow to add a custom handler.
@@ -62,5 +62,5 @@ void irq_unmask(uint8_t irq_nb);
 /* irq_mask_all
  * Mask all IRQs.
  * */
-void irq_mask_all();
+void irq_mask_all(void);
 #endif /* ifndef IRQ_H */

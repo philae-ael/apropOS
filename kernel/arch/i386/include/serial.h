@@ -5,12 +5,12 @@
  * Initialize the serial.
  * Have to be the first called function of this file.
  * */
-void serial_init();
+void serial_init(void);
 
 /* read_serial
  * Read a char from serial.
  * */
-char read_serial();
+char read_serial(void);
 
 /* write_serial
  * Write a char on the serial output.

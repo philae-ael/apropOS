@@ -3,16 +3,25 @@
 #include <kernel/i386/irq.h>
 #include <stdint.h>
 
-void (*irq_handlers[])(struct regs*) = {
+
+static void (*irq_handlers[])(struct regs*) = {
     0, 0, 0, 0, 0,
     0, 0, 0, 0, 0,
     0, 0, 0, 0, 0
 };
 
+static void pic_sendEOI(uint8_t irq_nb){
+    if(irq_nb >= 8)
+        outb(PIC2_COMMAND,PIC_EOI);
+
+    outb(PIC1_COMMAND,PIC_EOI);
+}
+
+void irq_handler(struct regs* r);
 void irq_handler(struct regs* r){
     if(r->int_no < 15 && irq_handlers[r->int_no] != 0)
         irq_handlers[r->int_no](r);
-    pic_sendEOI(r->int_no);
+    pic_sendEOI((uint8_t)r->int_no);
 
 }
 
@@ -38,7 +47,7 @@ void irq_unmask(uint8_t irq_nb) {
         port = PIC2_DATA;
         irq_nb -= 8;
     }
-    value = inb(port) | (1 << irq_nb);
+    value = (uint8_t)(inb(port) | (1 << irq_nb));
     outb(port, value);
 }
 
@@ -61,10 +70,3 @@ void irq_mask_all() {
     outb(PIC2_DATA, 0xFF);
 }
 
-void pic_sendEOI(uint8_t irq_nb)
-{
-    if(irq_nb >= 8)
-        outb(PIC2_COMMAND,PIC_EOI);
-
-    outb(PIC1_COMMAND,PIC_EOI);
-}

@@ -7,7 +7,7 @@ ARCHDIR:=arch/$(HOSTARCH)
 
 CFLAGS:=$(CFLAGS) -ffreestanding -Wall -Wextra
 CPPFLAGS:=$(CPPFLAGS) -D__is_apropos_kernel -I$(DESTDIR)/$(INCLUDEDIR)
-LDFLAGS:=$(LDFLAGS)
+LDFLAGS:=$(LDFLAGS)  -Wl,-Map=kernel.map
 LIBS:=$(LIBS) -nostdlib -lgcc -lk
 
 include def.config

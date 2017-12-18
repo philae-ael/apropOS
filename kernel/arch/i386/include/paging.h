@@ -16,8 +16,10 @@ typedef uint32_t page_directory_t;
 typedef uint32_t page_entry_t;
 
 
+int paging_map_page_kernel(void* physic_addr, void* virtual_addr);
+int paging_map_page(void* physic_addr, void* virtual_addr, page_directory_t* page_directory, uint32_t flags);
+void paging_fill_kernel_page(page_directory_t* page_directory, uint32_t flags);
 void paging_setup_directory(uint32_t entry_nb, page_directory_t dir);
-void paging_init();
-page_entry_t* find_next_empty_page(page_directory_t*);
+void paging_init(void);
 
 #endif /* ifndef PAGING_H */

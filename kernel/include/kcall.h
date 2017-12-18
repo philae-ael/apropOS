@@ -7,8 +7,8 @@
 
 void* kcall(uint32_t call_code, void* args);
 
-void kcall_init();
-void _kcall_init();
+void kcall_init(void);
+void _kcall_init(void);
 
 void* kcall_handler(uint32_t call_coder, void* args);
 void kcall_handler_install(uint32_t kcall_nb, void* (*handler)(void*));

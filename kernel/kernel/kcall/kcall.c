@@ -1,10 +1,10 @@
 #include <kernel/kcall.h>
 
-#include <string.h>
-#include <logging.h>
+#include <libk/string.h>
+#include <libk/logging.h>
 #include <stdint.h>
 
-void* (*handlers[KCALL_MAX_HANDLERS])(void*);
+static void* (*handlers[KCALL_MAX_HANDLERS])(void*);
 
 void kcall_init(){
     memset(handlers, 0, sizeof(handlers));

@@ -7,6 +7,6 @@
  *  - code descriptor (from 0 to 4G (all memory)) ring 0
  *  - data descriptor (from 0 to 4G (all memory)) ring 0
  * */
-void gdt_init();
+void gdt_init(void);
 
 #endif

@@ -1,5 +1,5 @@
-#include <logging.h>
-#include <assert.h>
+#include <libk/logging.h>
+#include <libk/assert.h>
 
 #include <kernel/i386/multiboot.h>
 #include <kernel/i386/asm/interrupts.h>
@@ -13,6 +13,8 @@
 #include <kernel/i386/paging.h>
 #include <kernel/kcall.h>
 
+void kernel_early(multiboot_info_t* mbd, uint32_t magic);
+
 void kernel_early(multiboot_info_t* mbd, uint32_t magic){
     disable_interrupts();
     irq_mask_all();
@@ -23,13 +25,17 @@ void kernel_early(multiboot_info_t* mbd, uint32_t magic){
 
     set_log_level(LOG_DEBUG);
 
+    info("========================");
+    info("apropOS is now launching");
+    info("========================");
+
     assert(magic == 0x2BADB002); // Is it really multiboot ?
     info("Serial initialized");
     info("Console initialized");
 
     debugf("Multiboot flags %X", mbd->flags);
 
-    if (mbd->flags, 0x2)
+    if (mbd->flags & 0x2)
          infof("Multiline cmdline = %s", mbd->cmdline);
 
     gdt_init();
@@ -38,11 +44,12 @@ void kernel_early(multiboot_info_t* mbd, uint32_t magic){
     idt_init();
     info("IDT initialized");
 
-    isr_init();
-    info("ISR initialized");
-
+    // IRQ before ISR to allow remap before exception are set
     irq_init();
     info("IRQ initialized");
+
+    isr_init();
+    info("ISR initialized");
 
     kcall_init();
     info("Kcalls initialized");

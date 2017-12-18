@@ -1,4 +1,5 @@
 [BITS 32]
+global stack_top
 ; Declare constants for the multiboot header.
 MBALIGN  equ  1<<0              ; align loaded modules on page boundaries
 MEMINFO  equ  1<<1              ; provide memory map

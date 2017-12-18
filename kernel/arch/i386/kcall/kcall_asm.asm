@@ -1,18 +1,18 @@
 global kcall
 global kcall_asm_handler
-extern kcall_handler
+extern _kcall_handler
 
 kcall:
     mov eax, [esp + 4] ; int code_call
-    mov ebp, [esp + 8] ; void* args
+    mov ebx, [esp + 8] ; void* args
     int 0x80
     ret ; return calue is in eax
 
 
 kcall_asm_handler:
     ; Push every thing
-    push 0 
-    push 0 ; int_no & err_code
+    push eax ; eax is int_no
+    push ebx ; ebp is er_code
 
     pusha
     push ds 
@@ -25,9 +25,9 @@ kcall_asm_handler:
     mov fs, ax 
     mov gs, ax 
     mov eax, esp
-    push eax ; push the stack
-
-    call kcall_handler
+    push eax ; push regs
+    push ebx ; push args
+    call _kcall_handler
 
     ; Pop everything
     add esp, 4 ; drop pushed stack

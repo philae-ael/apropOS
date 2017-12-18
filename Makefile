@@ -1,9 +1,10 @@
 export HOST?=i686-elf
 export HOSTARCH:=i386
 
-export AR=${HOST}-ar
-export AS=${HOST}-as
-export CC=${HOST}-gcc
+export MK_RESCUE?=grub-mkrescue
+
+export AR=ar
+export CC=clang -target ${HOST} -march=i386
 
 
 export PREFIX?=
@@ -18,20 +19,22 @@ export CC+= --sysroot=$(DESTDIR)
 export ASM=nasm
 export ASFLAGS=-felf32
 
-export CFLAGS_COMMON:=-O2 -g \
-    -ffreestanding -fbuiltin -Wall -Wextra \
-    -I=$(INCLUDEDIR)
+export CFLAGS_COMMON:=-g -Og\
+    -std=gnu11 \
+    -ffreestanding -fbuiltin -Weverything -Werror\
+    -I=$(INCLUDEDIR) \
+
 export CPPFLAGS_COMMON:=
 export LDFLAGS_COMMON:=
 export LIBS_COMMON:=
 
 QEMU=qemu-system-$(HOSTARCH)
 
-QEMU_FLAGS?= -serial mon:stdio \
-	    -kernel kernel/apropos.kernel \
-	    -nographic \
+QEMU_FLAGS_COMMON?= -kernel kernel/apropos.kernel
+	     
+QEMU_FLAGS?=-serial mon:stdio 
 
-QEMU_DEBUG_FLAGS?= -S -s
+QEMU_DEBUG_FLAGS?= -S -s -monitor stdio -d guest_errors
 
 BOCHS?=bochs
 BOCHS_FLAGS?=-f boshrc
@@ -42,22 +45,25 @@ all: install-headers install
 
 install-headers:
 	$(MAKE) -C libc install-headers
+	$(MAKE) -C libk install-headers
 	$(MAKE) -C kernel install-headers
 install:
 	$(MAKE) -C libc install 
+	$(MAKE) -C libk install 
 	$(MAKE) -C kernel install
 clean: 
 	$(MAKE) -C libc clean
+	$(MAKE) -C libk clean
 	$(MAKE) -C kernel clean
 	rm -f apropos.iso
 	rm -rf $(DESTDIR)
 	rm -rf isodir
 
 qemu: all
-	$(QEMU) $(QEMU_FLAGS)
+	$(QEMU) $(QEMU_FLAGS_COMMON) $(QEMU_FLAGS)
 
 qemu-gdb: all
-	$(QEMU) $(QEMU_FLAGS) $(QEMU_DEBUG_FLAGS)
+	$(QEMU) $(QEMU_FLAGS_COMMON) $(QEMU_DEBUG_FLAGS)
 
 bochs: apropos.iso
 	$(BOCHS) $(BOCHS_FLAGS)
@@ -67,4 +73,4 @@ apropos.iso: all
 
 	cp sysroot/boot/apropos.kernel isodir/boot/apropos.kernel
 	cp grub.cfg isodir/boot/grub/grub.cfg
-	grub2-mkrescue -o apropos.iso isodir
+	$(MK_RESCUE) -o apropos.iso isodir

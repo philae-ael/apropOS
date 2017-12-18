@@ -6,9 +6,9 @@
 #include <kernel/i386/serial.h>
 #endif
 
-int _log_level = LOG_DEFAULT;
+static int _log_level = LOG_DEFAULT;
 
-char *log_msg [] = {
+static char *log_msg [] = {
     "DEBUG: ",
     "INFO: ",
     "WARNING: ",

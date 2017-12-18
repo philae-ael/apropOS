@@ -1,4 +1,5 @@
 #include <kernel/i386/asm/io.h>
+#include <kernel/i386/serial.h>
 #include <stdint.h>
 
 #ifdef SERIAL_PORT_DISABLE
@@ -9,7 +10,7 @@ void write_serial(char c){}
 
 #else
 
-uint16_t serial_port; // serial_port set in serial_port
+static uint16_t serial_port; // serial_port set in serial_port
 
 void serial_init(){
     // We will use COM 1 mapped by bios on 0x400
@@ -33,36 +34,35 @@ void serial_init(){
     outb(serial_port + 1, 0x01); // Enable interrupts on data available
 }
 
-void wait_serial_in(){
+static void wait_serial_in(){
     // wait FIFO input to be full (bit 0 of line status register should be set)
     while((inb(serial_port + 5) & 0x1) == 0);
 }
 
-void wait_serial_out(){
+static void wait_serial_out(){
     // wait FIFO output to be empty (bit 5 of line status register should be set)
     while((inb(serial_port + 5) & 0x20) == 0);
 }
 char read_serial(){
     wait_serial_in();
-    return inb(serial_port);
+    return (char)inb(serial_port);
 }
 
 void write_serial(char c){
     wait_serial_out();
-    outb(serial_port, c);
+    outb(serial_port, (uint8_t)c);
 }
 
 int putchar_serial(int c){
-    write_serial(c);
+    write_serial((char)c);
     return c;
 }
 
 int puts_serial(const char* str){
-    char * ptr = str;
     int n = 0;
-    while(*ptr != 0){
-        write_serial(*ptr);
-        ptr++;
+    while(*str != 0){
+        write_serial(*str);
+        str++;
         n++;
     }
     return n;
