@@ -1,14 +1,10 @@
 #include <stdio.h>
 
-#ifdef _klibc
 #include <kernel/i386/console.h>
-#endif
+#include <kernel/i386/serial.h>
 
 int putchar(int c){
-#ifdef _klibc
-    console_putc((char) c);
-#else
-    //TODO
-#endif
+    console_putc((char)c);
+    putchar_serial((char)c);
     return c;
 }

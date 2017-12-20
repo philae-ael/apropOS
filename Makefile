@@ -21,7 +21,7 @@ export ASFLAGS=-felf32
 
 export CFLAGS_COMMON:=-g -Og\
     -std=gnu11 \
-    -ffreestanding -fbuiltin -Weverything -Werror\
+    -ffreestanding -fbuiltin -Werror\
     -I=$(INCLUDEDIR) \
 
 export CPPFLAGS_COMMON:=
@@ -30,11 +30,11 @@ export LIBS_COMMON:=
 
 QEMU=qemu-system-$(HOSTARCH)
 
-QEMU_FLAGS_COMMON?= -kernel kernel/apropos.kernel
-	     
-QEMU_FLAGS?=-serial mon:stdio 
+QEMU_FLAGS_COMMON?= -kernel kernel/apropos.kernel  -nographic -serial mon:stdio
 
-QEMU_DEBUG_FLAGS?= -S -s -monitor stdio -d guest_errors
+QEMU_FLAGS?=
+
+QEMU_DEBUG_FLAGS?= -S -s -d guest_errors
 
 BOCHS?=bochs
 BOCHS_FLAGS?=-f boshrc
@@ -48,10 +48,10 @@ install-headers:
 	$(MAKE) -C libk install-headers
 	$(MAKE) -C kernel install-headers
 install:
-	$(MAKE) -C libc install 
-	$(MAKE) -C libk install 
+	$(MAKE) -C libc install
+	$(MAKE) -C libk install
 	$(MAKE) -C kernel install
-clean: 
+clean:
 	$(MAKE) -C libc clean
 	$(MAKE) -C libk clean
 	$(MAKE) -C kernel clean

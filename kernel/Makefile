@@ -5,7 +5,7 @@ LIBS:=$(LIBS_COMMON)
 
 ARCHDIR:=arch/$(HOSTARCH)
 
-CFLAGS:=$(CFLAGS) -ffreestanding -Wall -Wextra
+CFLAGS:=$(CFLAGS) -ffreestanding -Werror -Weverything
 CPPFLAGS:=$(CPPFLAGS) -D__is_apropos_kernel -I$(DESTDIR)/$(INCLUDEDIR)
 LDFLAGS:=$(LDFLAGS)  -Wl,-Map=kernel.map
 LIBS:=$(LIBS) -nostdlib -lgcc -lk

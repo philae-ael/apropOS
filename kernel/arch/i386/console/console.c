@@ -91,10 +91,11 @@ void console_putc(const char c){
 
 }
 
-void console_puts(const char* str){
-    while(*str != 0){
-        console_putc(*str);
-        str++;
+void console_puts(const char* const str){
+    const char* s2 = str;
+    while(*s2 != 0){
+        console_putc(*s2);
+        s2++;
     }
 }
 

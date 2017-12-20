@@ -1,10 +1,17 @@
 global enable_paging
+global set_page_dir
 
-extern page_directory
+set_page_dir:
+    push ebp
+    mov ebp, esp
 
-enable_paging:
+    mov eax, [ebp + 0x8]
     mov cr3, eax ; Arg is passed by eax
 
+    pop ebp
+    ret
+
+enable_paging:
     mov eax, cr0
     or eax, 0x80000000
     mov cr0, eax

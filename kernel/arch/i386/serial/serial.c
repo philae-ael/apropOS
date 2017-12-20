@@ -58,11 +58,12 @@ int putchar_serial(int c){
     return c;
 }
 
-int puts_serial(const char* str){
+int puts_serial(const char* const str){
     int n = 0;
-    while(*str != 0){
-        write_serial(*str);
-        str++;
+    const char* s2 = str;
+    while(*s2 != 0){
+        write_serial(*s2);
+        s2++;
         n++;
     }
     return n;

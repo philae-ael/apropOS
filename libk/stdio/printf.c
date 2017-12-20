@@ -1,7 +1,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-int _printf(int (*puts)(const char[]),
+int _printf(int (*puts)(const char* const),
         int (*putchar)(int),
         const char *format, va_list args){
     const char *p;

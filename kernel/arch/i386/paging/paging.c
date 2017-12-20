@@ -4,22 +4,24 @@
 #include <libk/string.h>
 #include <libk/logging.h>
 
-static page_directory_t *page_directory_kernel;
-
-extern void enable_paging(page_directory_t*);
+extern void enable_paging(void);
 
 extern void* start_kernel;
 extern void* end_kernel;
 
+static page_directory_t *page_directory_kernel;
 static page_entry_t* page_reserve = (page_entry_t*) 0xdeadbeef;
+
+void set_kernel_page_dir(){
+    set_page_dir((void*) page_directory_kernel);
+}
 
 int paging_map_page(void* physic_addr, void* virtual_addr, page_directory_t* page_directory, uint32_t flags){
 
     if(page_reserve ==  (page_entry_t*) 0xdeadbeef){ // Set normally when paging is not set
         // Allow kernel to always have access to an empty page
         page_reserve = heap_get_free_block();
-        paging_map_page(page_reserve, page_reserve,
-                page_directory_kernel, PAGING_PRESENT | PAGING_RW);
+        paging_map_page_kernel(page_reserve, page_reserve); // identity map
     }
 
     size_t page_directory_index = (size_t) virtual_addr >> 22;
@@ -84,6 +86,7 @@ void paging_init(){
 
 
     paging_fill_kernel_page(page_directory_kernel, PAGING_PRESENT | PAGING_RW);
-    enable_paging(page_directory_kernel);
+    set_kernel_page_dir();
+    enable_paging();
 
 }

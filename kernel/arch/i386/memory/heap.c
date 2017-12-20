@@ -1,4 +1,5 @@
 #include <kernel/i386/memory_management.h>
+#include <kernel/i386/paging.h>
 #include <libk/logging.h>
 #include <string.h>
 
@@ -85,8 +86,14 @@ void* heap_get_free_block(){
         if(heap_map[i].used == 0 && heap_map[i].reserved == 0 && heap_map[i].magic == HEAP_FLAGS_MAGIC){
             heap_map[i].used = 1;
 
-            return (void*) heap_addr_from_index((size_t)i);
+            void* addr = (void*) heap_addr_from_index((size_t)i);
+            return addr;
         }
     }
-    return (void*)0xdeadbeef; // TODO
+    return NULL;
+}
+
+void* heap_get_free_blocks(int blocks){
+    (void)blocks;
+    return heap_get_free_block(); // TODO: it
 }
