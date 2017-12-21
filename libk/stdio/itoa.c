@@ -1,6 +1,6 @@
-#include <stdio.h>
+#include <libk/stdio.h>
 
-char * itoa(int value, char * str, int base )
+char* itoa(int value, char* str, int base)
 {
     char * rc;
     char * ptr;

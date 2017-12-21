@@ -1,7 +1,7 @@
 #include <kernel/i386/memory_management.h>
 #include <kernel/i386/paging.h>
 #include <libk/logging.h>
-#include <string.h>
+#include <libk/string.h>
 
 static heap_entry_t heap_map[1024 * 1024]; // One Mo
 

@@ -1,5 +1,5 @@
 #include <stdarg.h>
-#include <stdio.h>
+#include <libk/stdio.h>
 
 int _printf(int (*puts)(const char* const),
         int (*putchar)(int),

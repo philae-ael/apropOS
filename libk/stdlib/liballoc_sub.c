@@ -3,6 +3,7 @@
 #include <libk/stdio.h>
 #include <libk/stdlib.h>
 #include <libk/logging.h>
+#include <libk/utils.h>
 
 int liballoc_lock(){
     warn_func("No lock?");
@@ -21,6 +22,8 @@ void* liballoc_alloc(size_t pages) {
 }
 
 int liballoc_free(void* ptr, size_t pages){
+    UNUSED(ptr);
+    UNUSED(pages);
     warn_func("No free ?");
     return 0;
 }

@@ -1,5 +1,5 @@
-#include <logging.h>
-#include <stdio.h>
+#include <libk/logging.h>
+#include <libk/stdio.h>
 #include <stdarg.h>
 
 static int _log_level = LOG_DEFAULT;

@@ -1,6 +1,6 @@
-#include <stdio.h>
-#include <string.h>
-#include <utils.h>
+#include <libk/stdio.h>
+#include <libk/string.h>
+#include <libk/utils.h>
 
 #include <kernel/i386/console.h>
 #include <kernel/i386/serial.h>

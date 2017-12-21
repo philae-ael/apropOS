@@ -3,7 +3,7 @@
 */
 
 #include <stdint.h>
-#include <string.h>
+#include <libk/string.h>
 #include <kernel/i386/serial.h>
 #include <kernel/i386/console.h>
 

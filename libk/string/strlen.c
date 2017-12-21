@@ -1,5 +1,5 @@
 #include <stddef.h>
-#include <string.h>
+#include <libk/string.h>
 
 size_t strlen(const char * const str){
     size_t n = 0;

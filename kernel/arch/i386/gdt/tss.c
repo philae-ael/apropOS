@@ -1,4 +1,4 @@
-#include <string.h>
+#include <libk/string.h>
 
 #include <kernel/i386/tss.h>
 

@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include <libk/stdio.h>
 
 #include <kernel/i386/console.h>
 #include <kernel/i386/serial.h>
