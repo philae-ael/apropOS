@@ -14,6 +14,7 @@ based on [OSDev's recommandations](http://wiki.osdev.org/What_order_should_I_mak
 - [x] Working output system for logging on screen + helpers to show numbers in hex/dec/oct numbers (printf like interface)
 - [x] Working output system through serial port for debugging.
 - [x] Interupts handler + dumping all needed content (regs/stack frames/address default/other debugs things)
+- [x] Kcall interface
 - [ ] Malloc/free -> memory model flat with headers before used/unused block
 - [ ]And more...
 
@@ -21,18 +22,18 @@ based on [OSDev's recommandations](http://wiki.osdev.org/What_order_should_I_mak
 ## Prerequisites
 
 Need a working cross-compiler (CF http://wiki.osdev.org/GCC_Cross-Compiler)
+-- I use now clang, it works out of the box with archlinux' one
 
 ## The toolchain
 
-This toolchain come from OSDev tutorials initially but are quite reworked.
+It's a Makefile
+- make qemu -> launch kernel on qemu 
+- make bochs -> launch kernel on bochs
+- make clean -> remove the sysroot, .o, .kernel, .map...
 
-- **clean.sh** -> clean all object files and other
-- **build.sh** -> build project
-- **qemu.sh** -> build and start the kernel throught qemu
-
- Ctrl+A then C to get the hand over the qemu monitor
-
-*Warning:* run clean.sh when changing one def.config file.
+## Tips 
+- When you are on Ctrl+A then C to get the hand over the qemu monitor
+- When changing a libk/libc/ component, do a make clean
 
 ## The sources
 
@@ -68,10 +69,11 @@ Architecture (here i386 systems) dependant part of the kernel.
 Architecture independant part of the kernel.
 
 
-## Libc
+## Libc 
 
-
+I should adapt a newlib 
 
 ---------------
 # References:
 - A really good way to learn more and more -> [OSDev](http://wiki.osdev.org/)
+- Intel Manuel (volume 2 & 3A mainly)-> [RTFM](https://software.intel.com/en-us/articles/intel-sdm)

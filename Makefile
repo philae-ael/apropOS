@@ -44,15 +44,12 @@ all: install-headers install
 .PHONY: all clean install install-headers qemu qemu-gdb bochs
 
 install-headers:
-	$(MAKE) -C libc install-headers
 	$(MAKE) -C libk install-headers
 	$(MAKE) -C kernel install-headers
 install:
-	$(MAKE) -C libc install
 	$(MAKE) -C libk install
 	$(MAKE) -C kernel install
 clean:
-	$(MAKE) -C libc clean
 	$(MAKE) -C libk clean
 	$(MAKE) -C kernel clean
 	rm -f apropos.iso

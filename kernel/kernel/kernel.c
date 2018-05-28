@@ -5,20 +5,25 @@
 
 static __attribute__((noreturn)) void userland0(void);
 void userland0(){
-    struct kcall_write_t a = {.str = "A!\n", .len=3};
-    for(;;) {
-        kcall(0, (void*)&a);
-        kcall(1, 0);
-    }
+    struct kcall_write_t a = {.str = "A1!\n", .len=3};
+    struct kcall_write_t b = {.str = "A2!\n", .len=3};
+    kcall(0, (void*)&a);
+    kcall(1, 0);
+    kcall(0, (void*)&b);
+    kcall(1, 0);
+
+    for(;;);
 }
 
 static __attribute__((noreturn)) void userland1(void);
 void userland1(){
-    for(;;){
-        struct kcall_write_t a = {.str = "B!\n", .len=3};
-        kcall(0, (void*)&a);
-        kcall(1, 0);
-    }
+    struct kcall_write_t a = {.str = "B1!\n", .len=3};
+    struct kcall_write_t b = {.str = "B2!\n", .len=3};
+    kcall(0, (void*)&a);
+    kcall(1, 0);
+    kcall(0, (void*)&b);
+
+    for(;;);
 }
 
 void kcall_write(struct regs*r, void*args_);
