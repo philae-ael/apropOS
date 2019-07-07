@@ -12,7 +12,7 @@ static char *log_msg [] = {
     "ASSERT: "
 };
 
-void logf(int log_level, const char * fmt, ...){
+void logf_(int log_level, const char * fmt, ...){
     if(log_level < _log_level || log_level < MIN_LOG_LEVEL || log_level > MAX_LOG_LEVEL)
         return;
 
@@ -28,7 +28,7 @@ void logf(int log_level, const char * fmt, ...){
 
 }
 
-void log(int log_level, const char *msg){
+void log_(int log_level, const char *msg){
     if(log_level < _log_level || log_level < MIN_LOG_LEVEL || log_level > MAX_LOG_LEVEL)
         return;
 

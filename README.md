@@ -21,8 +21,10 @@ based on [OSDev's recommandations](http://wiki.osdev.org/What_order_should_I_mak
 # Let's run it
 ## Prerequisites
 
-Need a working cross-compiler (CF http://wiki.osdev.org/GCC_Cross-Compiler)
--- I use now clang, it works out of the box with archlinux' one
+- Need a working cross-compiler (CF http://wiki.osdev.org/GCC_Cross-Compiler)
+-- I use now clang, it works out of the box with archlinux's one
+- Qemu
+- Bochs (and mtools on archlinux) 
 
 ## The toolchain
 

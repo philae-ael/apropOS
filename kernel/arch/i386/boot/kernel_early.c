@@ -25,6 +25,7 @@ void kernel_early(multiboot_info_t* mbd, uint32_t magic){
 
     set_log_level(LOG_DEBUG);
 
+    puts_serial("\n");
     info("========================");
     info("apropOS is now launching");
     info("========================");

@@ -39,9 +39,11 @@ QEMU_DEBUG_FLAGS?= -S -s -d guest_errors
 BOCHS?=bochs
 BOCHS_FLAGS?=-f boshrc
 
-all: install-headers install
+.PHONY: all bear clean install-all install install-headers qemu qemu-gdb bochs
 
-.PHONY: all clean install install-headers qemu qemu-gdb bochs
+all: install-all
+install-all: install-headers install
+
 
 install-headers:
 	$(MAKE) -C libk install-headers
@@ -64,6 +66,11 @@ qemu-gdb: all
 
 bochs: apropos.iso
 	$(BOCHS) $(BOCHS_FLAGS)
+
+bear:
+	bear make -B install-all
+
+compile_command.json: bear
 
 apropos.iso: all
 	mkdir -p isodir/boot/grub

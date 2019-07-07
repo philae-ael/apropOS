@@ -37,12 +37,17 @@ $(OBJS) \
 $(CRTEND_OBJ) \
 $(CRTN_OBJ) \
 
-all: apropos.kernel
+all: compile_command.json apropos.kernel
 
 .PHONY: all clean install install-headers install-kernel
 
 apropos.kernel: $(OBJ_LINK_LIST) $(ARCHDIR)/linker.ld
+ifndef BEAR
 	$(CC) -T $(ARCHDIR)/linker.ld -o $@ $(CFLAGS) $(OBJ_LINK_LIST) $(LDFLAGS) $(LIBS)
+	BEAR=yep $(MAKE) -C .. bear 
+else
+	$(CC) -T $(ARCHDIR)/linker.ld -o $@ $(CFLAGS) $(OBJ_LINK_LIST) $(LDFLAGS) $(LIBS)
+endif
 
 %.o: %.c
 	$(CC) -c $< -o $@ -std=gnu11 $(CFLAGS) $(CPPFLAGS) $(CONF)
