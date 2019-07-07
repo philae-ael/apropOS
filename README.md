@@ -16,7 +16,7 @@ based on [OSDev's recommandations](http://wiki.osdev.org/What_order_should_I_mak
 - [x] Interupts handler + dumping all needed content (regs/stack frames/address default/other debugs things)
 - [x] Kcall interface
 - [ ] Malloc/free -> memory model flat with headers before used/unused block
-- [ ]And more...
+- [ ] And more...
 
 # Let's run it
 ## Prerequisites
