@@ -20,7 +20,7 @@ extern void irq13(void);
 extern void irq14(void);
 extern void irq15(void);
 
-static void irq_remap(){
+static void irq_remap(void){
     unsigned char a1, a2;
 
     a1 = inb(PIC1_DATA);                        // save masks
@@ -49,7 +49,7 @@ static void irq_remap(){
     outb(PIC2_DATA, a2);
 }
 
-void irq_init(){
+void irq_init(void){
     irq_remap();
 
     idt_set_gate(32, (uint32_t)irq0, 0x8, 0x8E);

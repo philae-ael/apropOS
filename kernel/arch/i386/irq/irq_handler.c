@@ -65,7 +65,7 @@ void irq_mask(uint8_t irq_nb) {
     outb(port, value);
 }
 
-void irq_mask_all() {
+void irq_mask_all(void) {
     outb(PIC1_DATA, 0xFF);
     outb(PIC2_DATA, 0xFF);
 }

@@ -6,7 +6,7 @@
 
 static void (*handlers[KCALL_MAX_HANDLERS])(struct regs*, void*);
 
-void kcall_init(){
+void kcall_init(void){
     memset(handlers, 0, sizeof(handlers));
     _kcall_init();
 }

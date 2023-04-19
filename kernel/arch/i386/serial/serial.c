@@ -12,7 +12,7 @@ void write_serial(char c){}
 
 static uint16_t serial_port; // serial_port set in serial_port
 
-void serial_init(){
+void serial_init(void){
     // We will use COM 1 mapped by bios on 0x400
     uint16_t* bios_serial_data = (uint16_t* ) 0x400;
     serial_port = *bios_serial_data; // In qemu (and a lot of machines) serial_port should be 0x3f8
@@ -34,16 +34,16 @@ void serial_init(){
     outb(serial_port + 1, 0x01); // Enable interrupts on data available
 }
 
-static void wait_serial_in(){
+static void wait_serial_in(void){
     // wait FIFO input to be full (bit 0 of line status register should be set)
     while((inb(serial_port + 5) & 0x1) == 0);
 }
 
-static void wait_serial_out(){
+static void wait_serial_out(void){
     // wait FIFO output to be empty (bit 5 of line status register should be set)
     while((inb(serial_port + 5) & 0x20) == 0);
 }
-char read_serial(){
+char read_serial(void){
     wait_serial_in();
     return (char)inb(serial_port);
 }

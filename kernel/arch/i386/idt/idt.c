@@ -28,7 +28,7 @@ void idt_set_gate(uint8_t num, uint32_t base, uint16_t sel, uint8_t flags){
     idt[num].always0 = 0;
 }
 
-void idt_init(){
+void idt_init(void){
     memset(idt, 0, sizeof(idt)); // fill with zero the IDT
 
     idt_load(idt, sizeof(idt) - 1);

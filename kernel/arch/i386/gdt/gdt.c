@@ -37,7 +37,7 @@ static void fill_entry(int num, unsigned long base, unsigned long limit, unsigne
     gdt[num].access = access;
 }
 
-void gdt_init(){
+void gdt_init(void){
     fill_entry(0, 0, 0, 0, 0); // Null selector (0x0), cannot be used
     fill_entry(1, 0, 0xFFFFFFFF, 0x9A, 0xCF); // Kernel's code selector (0x08)
     fill_entry(2, 0, 0xFFFFFFFF, 0x92, 0xCF); // Kernel's data selector (0x10)

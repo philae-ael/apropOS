@@ -5,10 +5,10 @@ LIBS:=$(LIBS_COMMON)
 
 ARCHDIR:=arch/$(HOSTARCH)
 
-CFLAGS:=$(CFLAGS) -ffreestanding -Werror -Weverything
+CFLAGS:=$(CFLAGS) -ffreestanding
 CPPFLAGS:=$(CPPFLAGS) -D__is_apropos_kernel -I$(DESTDIR)/$(INCLUDEDIR)
 LDFLAGS:=$(LDFLAGS)  -Wl,-Map=kernel.map
-LIBS:=$(LIBS) -nostdlib -lgcc -lk
+LIBS:=$(LIBS) -nostdlib -lgcc -lk -L$(DESTDIR)/$(LIBDIR)
 
 include def.config
 
@@ -50,7 +50,7 @@ else
 endif
 
 %.o: %.c
-	$(CC) -c $< -o $@ -std=gnu11 $(CFLAGS) $(CPPFLAGS) $(CONF)
+	$(CC) -c $< -o $@ $(CFLAGS) $(CPPFLAGS) $(CONF)
 
 %.o: %.S
 	$(CC) -c $< -o $@ $(CFLAGS) $(CPPFLAGS)

@@ -6,33 +6,35 @@
 
 #define NORETURN __attribute__((noreturn))
 static NORETURN void userland0(void);
-void userland0(){
-    struct kcall_write_t a = {.str = "A1!\n", .len=4};
-    struct kcall_write_t b = {.str = "A2!\n", .len=4};
-    kcall(KCALL_WRITE, (void*)&a);
-    kcall(KCALL_YIELD, 0);
-    kcall(KCALL_WRITE, (void*)&b);
-    kcall(KCALL_YIELD, 0);
+void userland0(void) {
+  struct kcall_write_t a = {.str = "A1!\n", .len = 4};
+  struct kcall_write_t b = {.str = "A2!\n", .len = 4};
+  kcall(KCALL_WRITE, (void *)&a);
+  kcall(KCALL_YIELD, 0);
+  kcall(KCALL_WRITE, (void *)&b);
+  kcall(KCALL_YIELD, 0);
 
-    for(;;);
+  for (;;)
+    ;
 }
 
 static NORETURN void userland1(void);
-void userland1(){
-    struct kcall_write_t a = {.str = "B1!\n", .len=4};
-    struct kcall_write_t b = {.str = "B2!\n", .len=4};
-    kcall(0, (void*)&a);
-    kcall(1, 0);
-    kcall(0, (void*)&b);
+void userland1(void) {
+  struct kcall_write_t a = {.str = "B1!\n", .len = 4};
+  struct kcall_write_t b = {.str = "B2!\n", .len = 4};
+  kcall(0, (void *)&a);
+  kcall(1, 0);
+  kcall(0, (void *)&b);
 
-    for(;;);
+  for (;;)
+    ;
 }
 
-void kcall_write(struct regs*r, void*args_);
-void kcall_write(struct regs*r, void*args_){
-    (void)r;
-    struct kcall_write_t* args =  (struct kcall_write_t*) args_;
-    puts(args->str);
+void kcall_write(struct regs *r, void *args_);
+void kcall_write(struct regs *r, void *args_) {
+  (void)r;
+  struct kcall_write_t *args = (struct kcall_write_t *)args_;
+  puts(args->str);
 }
 
 void NORETURN kernel_main(void);

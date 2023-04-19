@@ -54,7 +54,7 @@ void heap_init(multiboot_memory_map_t* mmap_base_addr, size_t mmap_length){
 extern void* start_kernel;
 extern void* end_kernel;
 
-void set_kernel_mem_used(){
+void set_kernel_mem_used(void){
     heap_entry_t* entry_kernel_start;
     heap_entry_t* entry_kernel_end;
 
@@ -81,7 +81,7 @@ void heap_map_add_entry(size_t* base_addr, size_t length, uint8_t type){
     }
 }
 
-void* heap_get_free_block(){
+void* heap_get_free_block(void){
     for (int i = 0; i < 1024 * 1024; ++i) {
         if(heap_map[i].used == 0 && heap_map[i].reserved == 0 && heap_map[i].magic == HEAP_FLAGS_MAGIC){
             heap_map[i].used = 1;

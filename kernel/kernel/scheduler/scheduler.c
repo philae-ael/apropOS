@@ -13,7 +13,7 @@
 
 static process_t *current_process = NULL;
 
-process_t *get_current_process(){
+process_t *get_current_process(void){
     return current_process;
 }
 
@@ -55,7 +55,7 @@ void scheduler_add(void* entry_point){
 
 }
 
-void scheduler_start(){
+void scheduler_start(void){
     current_process->running = 1;
     process_jump((void*)current_process->regs.eip,
                  current_process->cr3,
@@ -77,6 +77,6 @@ void scheduler_next(struct regs* regs, void* args){
     memcpy(regs, &current_process->regs, sizeof(struct regs));
 }
 
-void scheduler_init(){
+void scheduler_init(void){
    kcall_handler_install(KCALL_YIELD, &scheduler_next);
 }

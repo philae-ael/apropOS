@@ -13,6 +13,6 @@ void _kcall_handler(struct regs *regs, void* args){
     set_page_dir(get_current_process()->cr3);
 }
 
-void _kcall_init(){
+void _kcall_init(void){
     idt_set_gate(0x80, (uint32_t)kcall_asm_handler, 0x8, 0xEF);
 }

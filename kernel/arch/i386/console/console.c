@@ -22,7 +22,7 @@ static uint16_t* console;
 static struct console_status console_status;
 
 
-void clear_screen(){
+void clear_screen(void){
     for(uint16_t x = 0; x < console_status.screen.width * console_status.screen.height; x++){
         console[x] = 0;
     }
@@ -43,7 +43,7 @@ static void scrolls(uint8_t lineToScrolls){
     memset(start_clear, 0, (size_t)(end - start_clear) * sizeof(uint16_t));
 }
 
-void console_init(){
+void console_init(void){
     console = (uint16_t*)0xB8000;
 
     console_status.cursor.x = console_status.cursor.y = 0;

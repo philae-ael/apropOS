@@ -13,7 +13,7 @@ static page_directory_t* page_directory_kernel;
 static page_directory_t* page_directory_userland;
 static page_entry_t* page_reserve = (page_entry_t*) 0xdeadbeef;
 
-void set_kernel_page_dir(){
+void set_kernel_page_dir(void){
     set_page_dir((void*) page_directory_kernel);
 }
 
@@ -74,7 +74,7 @@ void paging_fill_kernel_page(page_directory_t *page_directory, uint32_t flags){
     }
 }
 
-void paging_init(){
+void paging_init(void) {
     // OK because blocks are 4kb aligned and 4kb long
     page_directory_kernel = (page_directory_t*) heap_get_free_block();
     memset(page_directory_kernel, 0 , 1024 * sizeof(page_directory_t));

@@ -20,8 +20,8 @@ export ASM=nasm
 export ASFLAGS=-felf32
 
 export CFLAGS_COMMON:=-g -Og\
-    -std=gnu11 \
-    -ffreestanding -fbuiltin -Werror\
+    -std=c11 \
+    -ffreestanding -fbuiltin -Wno-reserved-identifier -Wno-declaration-after-statement\
     -I=$(INCLUDEDIR) \
 
 export CPPFLAGS_COMMON:=
@@ -68,7 +68,7 @@ bochs: apropos.iso
 	$(BOCHS) $(BOCHS_FLAGS)
 
 bear:
-	bear make -B install-all
+	bear -- make -B install-all
 
 compile_command.json: bear
 
