@@ -51,9 +51,6 @@ static bool is_runing_on_qemu(void) {
   uint32_t hypervisor[5] = {0};
   cpuid_string(1 << 30, hypervisor);
   const char *QEMU_HYPERVISOR = "TCGTCGTCGTCG";
-
-  infof("memcmp(%s, %s, 12) == %d", hypervisor + 1, QEMU_HYPERVISOR,
-        memcmp(hypervisor + 1, QEMU_HYPERVISOR, 12));
   return memcmp(hypervisor + 1, QEMU_HYPERVISOR, 12) == 0;
 }
 

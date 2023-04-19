@@ -14,7 +14,7 @@ export INCLUDEDIR?=$(PREFIX)/include
 export LIBDIR?=$(EXEC_PREFIX)/lib
 export DESTDIR?=$(PWD)/sysroot
 
-export CC+= --sysroot=$(DESTDIR)
+export CC+= --sysroot=$(DESTDIR) -DLOG_ANSI_COLOR
 
 export ASM=nasm
 export ASFLAGS=-felf32
@@ -30,7 +30,11 @@ export LIBS_COMMON:=
 
 QEMU=qemu-system-$(HOSTARCH)
 
-QEMU_FLAGS_COMMON?= -kernel kernel/apropos.kernel  -nographic -serial mon:stdio
+QEMU_FLAGS_COMMON?= -kernel kernel/apropos.kernel -nographic
+QEMU_PIPE?=/tmp/apropos.fifo
+
+QEMU_PIPE_FLAGS?=-serial pipe:$(QEMU_PIPE)
+QEMU_STDIO_FLAGS?=-serial pipe:$(QEMU_PIPE)
 
 QEMU_FLAGS?=
 
@@ -39,7 +43,7 @@ QEMU_DEBUG_FLAGS?= -S -s -d guest_errors
 BOCHS?=bochs
 BOCHS_FLAGS?=-f boshrc
 
-.PHONY: all bear clean install-all install install-headers qemu qemu-gdb bochs
+.PHONY: all bear clean install-all install install-headers qemu qemu-gdb bochs $(QEMU_PIPE)
 
 all: install-all
 install-all: install-headers install
@@ -57,6 +61,13 @@ clean:
 	rm -f apropos.iso
 	rm -rf $(DESTDIR)
 	rm -rf isodir
+
+$(QEMU_PIPE):
+	-mkfifo $(QEMU_PIPE)
+
+qemu-pipe: all $(QEMU_PIPE)
+	# use `tail -f $(QEMU_PIPE)` to get the output
+	$(QEMU) $(QEMU_FLAGS_COMMON) $(QEMU_FLAGS) $(QEMU_PIPE_FLAGS)
 
 qemu: all
 	$(QEMU) $(QEMU_FLAGS_COMMON) $(QEMU_FLAGS)
